@@ -1,1 +1,19 @@
 
+{
+  "name": "saturn-btc-mining",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SATURN Bitcoin solo mining server",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
+
