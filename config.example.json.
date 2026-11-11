@@ -1,1 +1,23 @@
 
+{
+  "project": "SATURN",
+  "network": "testnet",
+  "stratum_port": 3333,
+  "rewards": {
+    "finder_percent": 70,
+    "project_percent": 30
+  },
+  "miners": {
+    "unique_login": true,
+    "track_accepted_shares": true,
+    "track_block_candidates": true
+  },
+  "dashboard": {
+    "show_total_hashrate": true,
+    "show_miner_count": true,
+    "hide_payout_addresses": true
+  },
+  "security": {
+    "store_private_keys": false
+  }
+}
