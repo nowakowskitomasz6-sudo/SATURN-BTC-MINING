@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -6,86 +5,154 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SATURN BTC MINING</title>
 <style>
-body {
-  background: #101525;
-  color: white;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-}
-h1 { color: #f5c542; }
-.card {
-  background: #1d2940;
-  border-radius: 14px;
-  padding: 18px;
-  margin: 12px 0;
-}
-.value {
-  font-size: 30px;
-  font-weight: bold;
-}
-small { color: #b9c4d6; }
+*{box-sizing:border-box}
+body{margin:0;background:#101525;color:#fff;font-family:Arial,sans-serif}
+main{max-width:850px;margin:auto;padding:22px}
+h1{color:#f5c542;font-size:34px}
+h2{font-size:21px}
+p,small{color:#bec9da}
+.card{background:#1d2940;padding:20px;border-radius:16px;margin:16px 0}
+.value{font-size:29px;font-weight:bold;margin:12px 0}
+input,button{width:100%;padding:13px;border-radius:9px;font-size:16px;margin:7px 0}
+input{background:#101525;color:white;border:1px solid #52627b}
+button{background:#f5c542;color:#111827;border:0;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5}
+.miner{padding:12px 0;border-bottom:1px solid #40516b}
+.good{color:#62dda1}
+.warn{color:#f5c542}
+.note{font-size:13px;line-height:1.5}
+a{color:#f5c542;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
+<main>
 <h1>🪐 SATURN BTC MINING</h1>
-<p>Panel monitoringu — tryb testowy</p>
+<p>GLOBAL SOLO MINERS — społeczność górników Bitcoin</p>
 
 <div class="card">
-  <small>Zarejestrowani górnicy testowi</small>
-  <div class="value" id="miners">—</div>
+<h2>🌍 Statystyki CKPool</h2>
+<small>Publiczne dane wspólnego adresu BTC</small>
+<div class="value" id="hash">Ładowanie...</div>
+<p id="workers">Sprawdzanie workerów...</p>
+<p id="best">Najlepszy udział: —</p>
+<p class="note" id="poolstatus"></p>
 </div>
 
 <div class="card">
-  <small>Aktywne połączenia</small>
-  <div class="value" id="connections">—</div>
+<h2>👤 Rejestracja górnika — wersja testowa</h2>
+<p>Utwórz lokalny profil demonstracyjny.</p>
+<label for="nick">Nazwa górnika</label>
+<input id="nick" maxlength="40" placeholder="Np. Pantera">
+<label for="minername">Nazwa koparki</label>
+<input id="minername" maxlength="40" placeholder="Np. Bitaxe Gamma 601">
+<button id="register">Zarejestruj testowo</button>
+<p id="message" role="status"></p>
+<p class="note">Dane są zapisywane tylko w tej przeglądarce. Nie jest to jeszcze prawdziwe konto online. Nie podawaj haseł ani kluczy portfela.</p>
 </div>
 
 <div class="card">
-  <small>Hashrate testowy</small>
-  <div class="value" id="hashrate">—</div>
+<h2>⛏️ Moje koparki</h2>
+<div id="miners">Brak zarejestrowanych koparek testowych.</div>
 </div>
 
 <div class="card">
-  <small>Wydobycie Bitcoin</small>
-  <div class="value">Nieaktywne</div>
+<h2>📊 Status projektu</h2>
+<p>Publiczna strona: <span class="good">Aktywna</span></p>
+<p>Rejestracja globalna: <span class="warn">W przygotowaniu</span></p>
+<p>Monitoring indywidualnych koparek: <span class="warn">W przygotowaniu</span></p>
+<p>Wydobycie: koparki pracują niezależnie przez skonfigurowaną pulę.</p>
 </div>
 
-<p id="status">Oczekiwanie na dane testowe...</p>
+<div class="card">
+<h2>🔐 Bezpieczeństwo</h2>
+<p>Nie udostępniaj prywatnych kluczy BTC, haseł do routera ani tokenów.</p>
+<p>Do zdalnego monitoringu przygotujemy bezpieczne połączenie bez wystawiania panelu AxeOS do internetu.</p>
+</div>
+
+<p class="note">SATURN BTC MINING — +1, bez końca 🪐</p>
+</main>
 
 <script>
-async function refresh() {
-  const status = document.getElementById("status");
-  try {
-    const response = await fetch(
-      "./api/status.json?v=" + Date.now(),
-      { cache: "no-store" }
-    );
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
-    }
+"use strict";
+const BTC="bc1q596uwd5cqnw00x9dkrrxzvxc6nvadj2vr3n376";
+const KEY="saturn_demo_miners_v1";
+const el=id=>document.getElementById(id);
 
-    const data = await response.json();
-    document.getElementById("miners").textContent =
-      data.minerCount ?? "—";
-
-    document.getElementById("connections").textContent =
-      (data.miners || []).filter(m => m.connected === true).length;
-
-    document.getElementById("hashrate").textContent =
-      data.totalHashrateTH != null
-        ? data.totalHashrateTH + " TH/s"
-        : "—";
-
-    status.textContent =
-      "SATURN — dane demonstracyjne. Nie są to zweryfikowane wyniki wydobycia BTC.";
-  } catch (error) {
-    status.textContent =
-      "SATURN — brak opublikowanych danych testowych.";
-  }
+function load(){
+ try{
+  const data=JSON.parse(localStorage.getItem(KEY)||"[]");
+  return Array.isArray(data)?data:[];
+ }catch{return []}
 }
-refresh();
-setInterval(refresh, 30000);
+
+function render(){
+ const data=load();
+ const root=el("miners");
+ root.replaceChildren();
+ if(!data.length){
+  root.textContent="Brak zarejestrowanych koparek testowych.";
+  return;
+ }
+ for(const m of data){
+  const div=document.createElement("div");
+  div.className="miner";
+  const title=document.createElement("strong");
+  title.textContent=m.nick+" — "+m.name;
+  const info=document.createElement("p");
+  info.textContent="ID: "+m.id+" | Monitoring: niepodłączony";
+  div.append(title,info);
+  root.append(div);
+ }
+}
+
+el("register").addEventListener("click",()=>{
+ const nick=el("nick").value.trim();
+ const name=el("minername").value.trim();
+ if(!nick||!name){
+  el("message").textContent="Wpisz nazwę górnika i koparki.";
+  return;
+ }
+ const data=load();
+ if(data.length>=30){
+  el("message").textContent="Limit 30 wpisów testowych.";
+  return;
+ }
+ const id="SAT-"+crypto.randomUUID().slice(0,8).toUpperCase();
+ data.push({id,nick,name});
+ try{
+  localStorage.setItem(KEY,JSON.stringify(data));
+  el("message").textContent="Dodano profil testowy: "+id;
+  el("nick").value="";
+  el("minername").value="";
+  render();
+ }catch{
+  el("message").textContent="Nie można zapisać danych w przeglądarce.";
+ }
+});
+
+async function refreshPool(){
+ try{
+  const response=await fetch(
+   "https://solo.ckpool.org/users/"+encodeURIComponent(BTC),
+   {cache:"no-store"}
+  );
+  if(!response.ok)throw Error("HTTP "+response.status);
+  const data=await response.json();
+  el("hash").textContent=data.hashrate5m??"Brak danych";
+  el("workers").textContent="Workery CKPool: "+(data.workers??"—");
+  el("best").textContent="Najlepszy udział: "+(data.bestshare??"—");
+  el("poolstatus").textContent="Dane CKPool odczytane. Hashrate to średnia z 5 minut.";
+ }catch{
+  el("hash").textContent="Brak odczytu";
+  el("workers").textContent="—";
+  el("best").textContent="Najlepszy udział: —";
+  el("poolstatus").textContent=
+   "Przeglądarka nie może pobrać CKPool. Może być potrzebny serwer pośredniczący.";
+ }
+}
+render();
+refreshPool();
+setInterval(refreshPool,30000);
 </script>
 </body>
 </html>
