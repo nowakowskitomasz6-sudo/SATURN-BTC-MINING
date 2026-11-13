@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+<title>SATURN BTC MINING</title>
+<style>
+body {
+  background: #101525;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+h1 { color: #f5c542; }
+.card {
+  background: #1d2940;
+  border-radius: 14px;
+  padding: 18px;
+  margin: 12px 0;
+}
+.value {
+  font-size: 30px;
+  font-weight: bold;
+}
+small { color: #b9c4d6; }
+</style>
+</head>
+<body>
+
+<h1>🪐 SATURN BTC MINING</h1>
+<p>Panel monitoringu — tryb testowy</p>
+
+<div class="card">
+  <small>Aktywni górnicy</small>
+  <div class="value" id="miners">—</div>
+</div>
+
+<div class="card">
+  <small>Aktywne połączenia</small>
+  <div class="value" id="connections">—</div>
+</div>
+
+<div class="card">
+  <small>Hashrate</small>
+  <div class="value">Niezweryfikowany</div>
+</div>
+
+<div class="card">
+  <small>Wydobycie Bitcoin</small>
+  <div class="value">Nieaktywne</div>
+</div>
+
+<p id="status">Łączenie z lokalnym API...</p>
+
+<script>
+async function refresh() {
+  try {
+    const response = await Promise.resolve({ok:false});
+
+    if (!response.ok) {
+      throw new Error("API " + response.status);
+    }
+
+    const data = await response.json();
+
+    document.getElementById("miners").textContent =
+      data.activeMiners;
+
+    document.getElementById("connections").textContent =
+      data.activeConnections;
+
+    document.getElementById("status").textContent =
+      "Dane testowe odświeżone";
+  } catch (error) {
+    document.getElementById("status").textContent =
+      "Brak połączenia: " + error.message;
+  }
+}
+
+refresh();
+setInterval(refresh, 5000);
+</script>
+
+</body>
+</html>
