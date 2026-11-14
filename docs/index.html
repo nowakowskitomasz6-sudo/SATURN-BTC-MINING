@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="pl">
 <head>
@@ -7,227 +6,54 @@
 <meta name="theme-color" content="#0b1424">
 <title>SATURN BTC MINING — GLOBAL SOLO MINERS</title>
 <style>
-:root{color-scheme:dark;--bg:#0b1424;--card:#16243a;--line:#30415c;--text:#f1f5fb;--muted:#b3c1d4;--gold:#f5c542;--green:#68d7aa}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 80% 0,#223a5c 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:980px;margin:auto;padding:24px 16px 60px}
-header{padding:24px 0 12px}
-h1{font-size:clamp(29px,5vw,46px);margin:0;color:var(--gold)}
-h2{font-size:22px;margin:0 0 16px}
-p{color:var(--muted)}
-.eyebrow{font-weight:700;letter-spacing:.13em;color:var(--green)}
-.lead{font-size:18px;max-width:720px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 12px 28px #0002}
-.grid .card{margin:0}
-.metric{font-size:clamp(22px,4vw,32px);font-weight:800;overflow-wrap:anywhere}
-.muted,small{color:var(--muted)}
-label{display:block;margin:12px 0 5px;font-weight:650}
-input,button{font:inherit;border-radius:10px;padding:12px;width:100%}
-input{background:#0b1424;color:var(--text);border:1px solid #52617a}
-input:focus{outline:2px solid var(--gold);outline-offset:1px}
-button{background:var(--gold);border:0;color:#101827;font-weight:800;cursor:pointer;margin-top:16px}
-button.secondary{background:transparent;border:1px solid #6e829c;color:var(--text);width:auto;padding:8px 12px;margin:0}
-.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.notice{padding:12px 14px;border-left:4px solid var(--gold);background:#26334a;border-radius:6px}
-.ok{color:var(--green)}
-.error{color:#ffaaa6}
-.miner{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:14px 0}
-.miner:first-child{border-top:0}
-.miner strong{display:block}
-.miner small{display:block;overflow-wrap:anywhere}
-.pill{display:inline-block;border:1px solid #59718e;padding:2px 8px;border-radius:20px;font-size:12px;color:var(--muted)}
-a{color:var(--gold);overflow-wrap:anywhere}
-footer{padding:20px 0;color:var(--muted);font-size:14px}
-code{overflow-wrap:anywhere}
-@media(max-width:500px){.miner{align-items:flex-start;flex-direction:column}}
+:root{color-scheme:dark;--bg:#0b1424;--card:#16243a;--line:#30415c;--text:#f1f5fb;--muted:#b3c1d4;--gold:#f5c542;--green:#72dba3}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#223a5c 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}main{max-width:980px;margin:auto;padding:24px 16px 60px}header{padding:28px 0 14px}.eyebrow{letter-spacing:.16em;color:var(--green);font-weight:700;font-size:12px}h1{font-size:clamp(32px,6vw,52px);line-height:1.1;margin:12px 0;color:var(--gold)}h2{font-size:23px;margin:0 0 14px}.lead{font-size:18px;max-width:720px;color:var(--muted)}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 14px 32px #0002}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}.metric{font-size:clamp(22px,4vw,32px);font-weight:800;overflow-wrap:anywhere}.muted,small{color:var(--muted)}label{display:block;margin:14px 0 5px;font-weight:650}input{font:inherit;border:1px solid #52617a;border-radius:10px;padding:12px;width:100%;background:#0b1424;color:var(--text)}input:focus{outline:2px solid var(--gold);outline-offset:1px}button{font:inherit;background:var(--gold);border:0;color:#101827;font-weight:800;border-radius:10px;padding:12px 18px;cursor:pointer;margin-top:16px}button:disabled{opacity:.55;cursor:wait}.secondary{background:transparent;border:1px solid #6e829c;color:var(--text);font-weight:600}.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}.notice{background:#26334a;border-left:4px solid var(--gold);padding:12px;border-radius:6px;margin:18px 0}.ok{color:var(--green)}.error{color:#ffaaa6}a{color:var(--gold);overflow-wrap:anywhere}footer{padding:20px 0;color:var(--muted);font-size:14px}.status{min-height:1.5em;overflow-wrap:anywhere}.miner{border-top:1px solid var(--line);padding:12px 0}.miner:first-child{border-top:0}.pill{display:inline-block;border:1px solid #59718b;border-radius:99px;padding:2px 9px;color:var(--muted);font-size:12px}
 </style>
 </head>
-<body>
-<main>
-<header>
-<div class="eyebrow">GLOBAL SOLO MINERS</div>
-<h1>🪐 SATURN BTC MINING</h1>
-<p class="lead">Społeczność górników Bitcoin SOLO. Rozwijamy projekt krok po kroku — <strong>+1, bez końca!</strong></p>
-</header>
-
-<div class="notice"><strong>Wersja demonstracyjna:</strong> zgłoszenia zapisują się wyłącznie w tej przeglądarce. Nie są wysyłane do administratora ani do Supabase. Statystyki CKPool dotyczą wskazanego adresu BTC, nie całej społeczności.</div>
-
-<section class="card" aria-labelledby="pool-title">
-<h2 id="pool-title">🌍 Statystyki CKPool</h2>
-<p>Publiczne dane dla adresu Bitcoin SOLO:</p>
-<div class="grid">
-<div><div class="muted">Hashrate CKPool (5 min)</div><div class="metric" id="hash">—</div></div>
-<div><div class="muted">Workery</div><div class="metric" id="workers">—</div></div>
-<div><div class="muted">Najlepszy udział</div><div class="metric" id="best">—</div></div>
-</div>
-<p id="poolstatus" role="status">Oczekiwanie na odczyt…</p>
-<div class="actions">
-<button type="button" class="secondary" id="refresh">Odśwież CKPool</button>
-<a id="poollink" href="https://solo.ckpool.org/" target="_blank" rel="noopener noreferrer">Panel CKPool</a>
-</div>
-</section>
-
-<section aria-labelledby="community-title">
-<h2 id="community-title">⛏️ Nasza społeczność — dane lokalne</h2>
-<div class="grid">
-<div class="card"><div class="muted">Profile demonstracyjne</div><div class="metric" id="count">0</div></div>
-<div class="card"><div class="muted">Zadeklarowana moc</div><div class="metric"><span id="total">0</span> TH/s</div></div>
-</div>
-</section>
-
-<section class="card" aria-labelledby="register-title">
-<h2 id="register-title">➕ Dodaj profil testowy górnika</h2>
-<p>Możesz wypróbować formularz bez logowania. To jeszcze <strong>nie jest oficjalne zgłoszenie do SATURN</strong>.</p>
-<form id="registration">
-<label for="nick">Nazwa górnika</label>
-<input id="nick" name="nick" maxlength="60" minlength="2" placeholder="np. PANTERA-01" autocomplete="nickname" required>
-<label for="btc">Adres portfela BTC (publiczny)</label>
-<input id="btc" name="btc" maxlength="90" placeholder="bc1… lub 1… lub 3…" autocapitalize="off" spellcheck="false" required>
-<label for="power">Moc koparki (TH/s)</label>
-<input id="power" name="power" type="number" min="0.001" max="1000000" step="any" inputmode="decimal" placeholder="np. 1.2" required>
-<button type="submit">Zapisz profil testowy</button>
-</form>
-<p id="message" role="status" aria-live="polite"></p>
-</section>
-
-<section class="card" aria-labelledby="list-title">
-<h2 id="list-title">📋 Profile testowe</h2>
-<div id="miners"><p>Brak profili.</p></div>
-</section>
-
-<section class="card">
-<h2>🔒 Jak działa SATURN?</h2>
-<p>W tej wersji lista profili jest widoczna tylko na urządzeniu, na którym została zapisana. Nie potwierdza rzeczywistej mocy koparek ani udziału w wydobyciu. Do uruchomienia globalnej rejestracji potrzebny będzie chroniony formularz serwerowy z kontrolą spamu i zatwierdzaniem zgłoszeń.</p>
-<p>Wydobywanie SOLO jest losowe — nie ma gwarancji znalezienia bloku ani wypłaty.</p>
-</section>
-
-<footer>SATURN BTC MINING • GLOBAL SOLO MINERS • +1, bez końca 🪐</footer>
-</main>
-<script>
+<body><main>
+<header><div class="eyebrow">GLOBAL SOLO MINERS</div><h1>SATURN BTC MINING</h1><p class="lead">Społeczność górników Bitcoin SOLO. Budujemy projekt krok po kroku — <strong>+1, bez końca!</strong> 🪐</p></header>
+<div class="notice"><strong>Rejestracja zgłoszeń:</strong> formularz przesyła dane do funkcji Supabase, gdy jej adres zostanie skonfigurowany. Zgłoszenie nie oznacza automatycznej akceptacji, podłączenia koparki ani prawa do wypłaty.</div>
+<section class="card" aria-labelledby="pool-title"><h2 id="pool-title">🌐 Statystyki CKPool</h2><p class="muted">Publiczne dane dla adresu Bitcoin SOLO:</p><div class="grid"><div><div class="muted">Hashrate (5 min)</div><div class="metric" id="hash">—</div></div><div><div class="muted">Workery</div><div class="metric" id="workers">—</div></div><div><div class="muted">Najlepszy udział</div><div class="metric" id="best">—</div></div></div><p id="poolstatus" class="status" role="status">Oczekiwanie na odczyt…</p><div class="actions"><button type="button" class="secondary" id="refresh">Odśwież CKPool</button><a id="poollink" href="https://solo.ckpool.org/" target="_blank" rel="noopener noreferrer">Panel CKPool</a></div></section>
+<section class="card" aria-labelledby="register-title"><h2 id="register-title">🐆 Zgłoś górnika do SATURN</h2><p class="muted">Zgłoszenie trafi do weryfikacji. Podaj wyłącznie publiczny adres BTC — nigdy klucza prywatnego ani frazy odzyskiwania.</p><form id="registration"><label for="nick">Nazwa górnika</label><input id="nick" name="nick" maxlength="60" minlength="2" placeholder="np. PANTERA-01" autocomplete="nickname" required><label for="btc">Publiczny adres portfela BTC</label><input id="btc" name="btc" maxlength="90" placeholder="bc1… lub 1… lub 3…" autocapitalize="off" spellcheck="false" required><label for="power">Moc koparki (TH/s)</label><input id="power" name="power" type="number" min="0.001" max="1000000" step="any" inputmode="decimal" placeholder="np. 1.2" required><button type="submit" id="submit">Wyślij zgłoszenie</button></form><p id="message" class="status" role="status" aria-live="polite"></p></section>
+<section class="card"><h2>📋 Status projektu</h2><p>Nowe zgłoszenia są zapisywane w prywatnej bazie i wymagają weryfikacji. Publiczna lista zatwierdzonych górników zostanie uruchomiona osobno — nie udostępniamy zgłoszeń oczekujących.</p><span class="pill">Etap: rejestracja i weryfikacja</span></section>
+<section class="card"><h2>☝️ Jak działa SATURN?</h2><p>Projekt ma łączyć społeczność górników Bitcoin SOLO. Samo zgłoszenie nie zmienia ustawień koparki, nie łączy mocy i nie uruchamia podziału nagród. Zasady uczestnictwa i ewentualnych wypłat muszą zostać odrębnie określone i zaakceptowane.</p><p>Wydobywanie SOLO jest losowe — nie ma gwarancji znalezienia bloku ani wypłaty.</p></section>
+<footer>SATURN BTC MINING · GLOBAL SOLO MINERS · +1, bez końca 🪐</footer>
+</main><script>
 'use strict';
-const ADDRESS='bc1q596uwd5cqnw00x9dkrrxzvxc6nvadj2vr3n376';
-const KEY='saturn_demo_miners_v2';
-const el=id=>document.getElementById(id);
-let miners=[];
-try{
- const saved=JSON.parse(localStorage.getItem(KEY)||'[]');
- if(Array.isArray(saved))miners=saved.filter(m=>m&&typeof m.nick==='string'&&typeof m.btc==='string'&&Number.isFinite(m.power));
-}catch(_){miners=[];}
-const format=n=>new Intl.NumberFormat('pl-PL',{maximumFractionDigits:3}).format(n);
-
-function render(){
- el('count').textContent=String(miners.length);
- el('total').textContent=format(miners.reduce((sum,m)=>sum+m.power,0));
- const root=el('miners');
- root.replaceChildren();
- if(!miners.length){
-  const p=document.createElement('p');
-  p.textContent='Brak profili testowych.';
-  root.append(p);
-  return;
- }
- miners.forEach((m,i)=>{
-  const item=document.createElement('div');
-  item.className='miner';
-  const info=document.createElement('div');
-  const name=document.createElement('strong');
-  name.textContent=m.nick;
-  const address=document.createElement('small');
-  address.textContent='BTC: '+m.btc;
-  const power=document.createElement('span');
-  power.className='pill';
-  power.textContent=format(m.power)+' TH/s • profil testowy';
-  info.append(name,address,power);
-  const remove=document.createElement('button');
-  remove.type='button';
-  remove.className='secondary';
-  remove.textContent='Usuń';
-  remove.setAttribute('aria-label','Usuń profil '+m.nick);
-  remove.addEventListener('click',()=>{
-   miners.splice(i,1);
-   save();
-   render();
-  });
-  item.append(info,remove);
-  root.append(item);
- });
-}
-
-function save(){
- try{
-  localStorage.setItem(KEY,JSON.stringify(miners));
-  return true;
- }catch(_){return false;}
-}
-
-function validBTC(s){
- return /^(bc1[ac-hj-np-z02-9]{11,87}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/.test(s);
-}
-
-el('registration').addEventListener('submit',event=>{
+// WPISZ TUTAJ PUBLICZNY URL EDGE FUNCTION (nie klucz API!).
+// Przykład formatu: https://TWOJ-PROJEKT.supabase.co/functions/v1/saturn-rejestracja
+const REGISTRATION_URL = '';
+const ADDRESS = 'bc1q596uwd5cqnw00x9dkrrxzvxc6nvadj2vr3n376';
+const el = id => document.getElementById(id);
+function validBTC(s){return /^(bc1[a-z0-9]{11,87}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/.test(s)}
+function status(message,isError=false){el('message').textContent=message;el('message').className='status '+(isError?'error':'ok')}
+el('registration').addEventListener('submit',async event=>{
  event.preventDefault();
- const nick=el('nick').value.trim();
- const btc=el('btc').value.trim();
- const power=Number(el('power').value.replace(',','.'));
- if(nick.length<2||nick.length>60){
-  el('message').textContent='Nazwa powinna mieć od 2 do 60 znaków.';
-  return;
- }
- if(!validBTC(btc)){
-  el('message').textContent='Sprawdź format publicznego adresu BTC.';
-  return;
- }
- if(!Number.isFinite(power)||power<=0||power>1000000){
-  el('message').textContent='Wpisz prawidłową moc TH/s.';
-  return;
- }
- if(miners.some(m=>m.nick.toLowerCase()===nick.toLowerCase()&&m.btc===btc)){
-  el('message').textContent='Taki profil testowy już istnieje.';
-  return;
- }
- miners.push({nick,btc,power});
- if(!save()){
-  miners.pop();
-  el('message').textContent='Przeglądarka zablokowała zapis lokalny.';
-  return;
- }
- render();
- el('registration').reset();
- el('message').textContent='Zapisano profil testowy w tej przeglądarce. Nie wysłano zgłoszenia do SATURN.';
+ const name=el('nick').value.trim(),address=el('btc').value.trim(),power=Number(el('power').value.replace(',','.'));
+ if(name.length<2||name.length>60){status('Nazwa musi mieć od 2 do 60 znaków.',true);return}
+ if(!validBTC(address)){status('Sprawdź format publicznego adresu BTC.',true);return}
+ if(!Number.isFinite(power)||power<=0||power>1000000){status('Wpisz prawidłową moc TH/s.',true);return}
+ if(!REGISTRATION_URL.startsWith('https://')||!REGISTRATION_URL.includes('/functions/v1/saturn-rejestracja')){status('Rejestracja jeszcze nieaktywna: administrator musi skonfigurować adres funkcji Supabase.',true);return}
+ const button=el('submit');button.disabled=true;status('Wysyłanie zgłoszenia…');
+ try{
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),15000);
+  let response;
+  try{response=await fetch(REGISTRATION_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({miner_name:name,btc_address:address,hashrate_th:power}),signal:controller.signal})}finally{clearTimeout(timeout)}
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok||data.success!==true)throw new Error(response.status===401?'Funkcja wymaga autoryzacji. Administrator musi skonfigurować bezpieczny dostęp publiczny.':data.error||'Serwer nie potwierdził zgłoszenia.');
+  status('Zgłoszenie przyjęte do weryfikacji!');el('registration').reset();
+ }catch(err){status(err.name==='AbortError'?'Przekroczono czas połączenia. Sprawdź status zgłoszenia przed ponowną próbą.':'Nie udało się wysłać: '+(err.message||'problem z połączeniem'),true)}
+ finally{button.disabled=false}
 });
-
 async function refreshPool(){
  el('poolstatus').textContent='Pobieranie danych CKPool…';
  const url='https://solo.ckpool.org/users/'+encodeURIComponent(ADDRESS);
  el('poollink').href=url;
- try{
-  const controller=new AbortController();
-  const timeout=setTimeout(()=>controller.abort(),10000);
-  let response;
-  try{
-   response=await fetch(url,{cache:'no-store',signal:controller.signal});
-  }finally{
-   clearTimeout(timeout);
-  }
-  if(!response.ok)throw new Error('HTTP '+response.status);
-  const data=await response.json();
-  el('hash').textContent=data.hashrate5m??'—';
-  el('workers').textContent=Array.isArray(data.worker)?String(data.worker.length):(data.workers??'—');
-  el('best').textContent=data.bestshare??'—';
-  el('poolstatus').textContent='Odczytano publiczne dane CKPool.';
- }catch(_){
-  el('hash').textContent='—';
-  el('workers').textContent='—';
-  el('best').textContent='—';
-  el('poolstatus').textContent='Nie udało się pobrać CKPool (możliwa blokada CORS). Otwórz panel CKPool przez link obok.';
- }
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
+ try{const response=await fetch(url,{cache:'no-store',signal:controller.signal});if(!response.ok)throw new Error('HTTP '+response.status);const data=await response.json();
+ el('hash').textContent=data.hashrate5m??'—';el('workers').textContent=Array.isArray(data.worker)?String(data.worker.length):(data.workers??'—');el('best').textContent=data.bestshare??'—';el('poolstatus').textContent='Odczytano publiczne dane CKPool.';
+ }catch{el('hash').textContent='—';el('workers').textContent='—';el('best').textContent='—';el('poolstatus').textContent='Nie udało się pobrać danych (możliwa blokada CORS). Otwórz panel CKPool przez link obok.'}
+ finally{clearTimeout(timeout)}
 }
-
-el('refresh').addEventListener('click',refreshPool);
-render();
-refreshPool();
-setInterval(refreshPool,60000);
-</script>
-</body>
-</html>
+el('refresh').addEventListener('click',refreshPool);refreshPool();setInterval(refreshPool,60000);
+</script></body></html>
