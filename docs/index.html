@@ -1,5 +1,100 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SATURN BTC MINING</title><style>body{font:16px system-ui;background:#0b1424;color:#f1f5fb;margin:0}main{max-width:780px;margin:40px auto;padding:20px}.panel{background:#16243a;padding:22px;border-radius:16px;margin:18px 0}h1,h2{color:#f5c542}input,button{box-sizing:border-box;display:block;width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #61718b}button{background:#f5c542;color:#101b2e;font-weight:bold;cursor:pointer}small{color:#b3c1d4}code{overflow-wrap:anywhere}a{color:#f5c542}</style></head><body><main><h1>🪐 SATURN BTC MINING</h1><p>GLOBAL SOLO MINERS — społeczność górników BTC solo</p><section class="panel"><h2>Główny adres BTC</h2><code id="address">Ładowanie…</code><p><small>Nie ustawiaj koparki na ten adres, dopóki administrator nie zatwierdzi zgłoszenia i nie potwierdzi zasad.</small></p><p><strong>98% dla potwierdzonego znalazcy bloku / 2% SATURN</strong></p></section><section class="panel"><h2>Rejestracja górnika</h2><form id="form"><input id="name" placeholder="Nazwa górnika" minlength="2" maxlength="60" required><input id="btc" placeholder="Twój adres BTC do wypłaty" required><input id="hash" type="number" step="any" min="0.001" max="1000000" placeholder="Moc TH/s" required><label><input type="checkbox" id="accept" style="width:auto;display:inline" required> Akceptuję zasady: wypłata po niezależnym potwierdzeniu znalazcy, brak gwarancji znalezienia bloku, 98/2.</label><button>Wyślij zgłoszenie</button></form><p id="result" role="status"></p></section><section class="panel"><h2>Status społeczności</h2><p id="stats">Ładowanie…</p><p id="blocks"></p><small>Statystyki bloków to wpisy ewidencyjne. CKPool nie zapewnia tu automatycznego, kryptograficznego potwierdzenia tożsamości znalazcy. Wypłaty nie są automatyczne.</small></section></main><script>
-const API='https://zwlreipyvwbajocczbze.supabase.co/functions/v1/saturn-api';
-async function load(){try{const r=await fetch(API+'?action=public');if(!r.ok)throw Error();const d=await r.json();document.querySelector('#address').textContent=d.main_btc_address||'Adres jeszcze nie skonfigurowany';document.querySelector('#stats').textContent='Aktywne identyfikatory koparek: '+d.active_workers;document.querySelector('#blocks').textContent='Zarejestrowane bloki: '+(d.blocks?.length||0);}catch{document.querySelector('#stats').textContent='Statystyki chwilowo niedostępne';document.querySelector('#address').textContent='Adres jeszcze niedostępny';}}load();
-document.querySelector('#form').addEventListener('submit',async e=>{e.preventDefault();const out=document.querySelector('#result');out.textContent='Wysyłanie…';try{const r=await fetch(API+'?action=register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({miner_name:document.querySelector('#name').value,btc_address:document.querySelector('#btc').value,hashrate_th:Number(document.querySelector('#hash').value)})});const d=await r.json();out.textContent=d.message||d.error||'Błąd';if(r.ok)e.target.reset();}catch{out.textContent='Błąd połączenia';}});
-</script></body></html>
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SATURN BTC MINING</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1424;color:#f1f5fb;font:16px system-ui,sans-serif}
+main{max-width:780px;margin:auto;padding:30px 18px}
+h1,h2{color:#f5c542}
+h1{font-size:38px}
+.panel{background:#16243a;padding:24px;border-radius:18px;margin:22px 0}
+input:not([type=checkbox]),button{display:block;width:100%;padding:14px;margin:12px 0;border-radius:10px;font:inherit}
+input:not([type=checkbox]){border:1px solid #61718b}
+button{background:#f5c542;color:#101b2e;font-weight:bold;border:0;cursor:pointer}
+small{color:#b3c1d4;line-height:1.6}
+code{overflow-wrap:anywhere}
+.notice{border-left:4px solid #f5c542;padding-left:14px}
+#result{min-height:24px}
+</style>
+</head>
+<body>
+<main>
+<h1>🪐 SATURN BTC MINING</h1>
+<p>GLOBAL SOLO MINERS — społeczność górników Bitcoin SOLO.</p>
+
+<section class="panel">
+<h2>Główny adres BTC SATURN</h2>
+<p id="address">Oczekuje na potwierdzenie administratora</p>
+<small>Nie podłączaj koparki do wspólnego adresu przed zatwierdzeniem uczestnictwa i zasad rozliczeń.</small>
+<h2>Podział nagrody</h2>
+<p><strong>98% — potwierdzony znalazca bloku</strong></p>
+<p><strong>2% — SATURN</strong></p>
+<small>Wypłata wymaga niezależnego potwierdzenia znalazcy. Nie jest automatyczna.</small>
+</section>
+
+<section class="panel">
+<h2>Rejestracja górnika</h2>
+<form id="form">
+<input id="name" placeholder="Nazwa górnika" minlength="2" maxlength="60" required>
+<input id="btc" placeholder="Twój adres BTC do wypłaty" required>
+<input id="hash" type="number" step="any" min="0.001" max="1000000" placeholder="Moc TH/s" required>
+<label>
+<input type="checkbox" id="accept" required>
+ Akceptuję zasady 98/2, weryfikację znalazcy i brak gwarancji znalezienia bloku.
+</label>
+<button type="submit">Wyślij zgłoszenie</button>
+</form>
+<p id="result" role="status"></p>
+</section>
+
+<section class="panel">
+<h2>Status SATURN</h2>
+<p>Rejestracje wymagają zatwierdzenia administratora.</p>
+<p>Identyfikacja koparek i rozliczenia bloków wymagają uruchomienia zaplecza SATURN.</p>
+<p class="notice">Nie publikujemy niepotwierdzonych statystyk ani informacji o znalezionych blokach.</p>
+</section>
+</main>
+
+<script>
+const REGISTRATION_API =
+  "https://zwlreipyvwbajocczbze.supabase.co/functions/v1/saturn-rejestracja";
+
+document.getElementById("form").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const result = document.getElementById("result");
+  result.textContent = "Wysyłanie zgłoszenia...";
+
+  const payload = {
+    miner_name: document.getElementById("name").value.trim(),
+    btc_address: document.getElementById("btc").value.trim(),
+    hashrate_th: Number(document.getElementById("hash").value)
+  };
+
+  try {
+    const response = await fetch(REGISTRATION_API, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      result.textContent = data.error || "Nie udało się wysłać zgłoszenia.";
+      return;
+    }
+
+    result.textContent = "Zgłoszenie przyjęte do weryfikacji!";
+    event.target.reset();
+
+  } catch (error) {
+    result.textContent = "Błąd połączenia. Spróbuj ponownie później.";
+  }
+});
+</script>
+</body>
+</html>
