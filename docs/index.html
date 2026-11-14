@@ -1,100 +1,38 @@
+
 <!doctype html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SATURN BTC MINING</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#091221"><title>SATURN BTC MINING | GLOBAL SOLO MINERS</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b1424;color:#f1f5fb;font:16px system-ui,sans-serif}
-main{max-width:780px;margin:auto;padding:30px 18px}
-h1,h2{color:#f5c542}
-h1{font-size:38px}
-.panel{background:#16243a;padding:24px;border-radius:18px;margin:22px 0}
-input:not([type=checkbox]),button{display:block;width:100%;padding:14px;margin:12px 0;border-radius:10px;font:inherit}
-input:not([type=checkbox]){border:1px solid #61718b}
-button{background:#f5c542;color:#101b2e;font-weight:bold;border:0;cursor:pointer}
-small{color:#b3c1d4;line-height:1.6}
-code{overflow-wrap:anywhere}
-.notice{border-left:4px solid #f5c542;padding-left:14px}
-#result{min-height:24px}
+:root{color-scheme:dark;--bg:#091221;--panel:#18283f;--gold:#ffcb49;--muted:#b8c6d8;--line:#3a4b62}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0%,#253451,#091221 55%);color:#f7f8fc;font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}a{color:inherit}.wrap{max-width:1200px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--line)}.brand{font-weight:900;letter-spacing:.1em;color:var(--gold);font-size:1.3rem}.brand small{display:block;color:#d3d7e3;font-size:.65rem;letter-spacing:.16em}.nav{display:flex;gap:16px;flex-wrap:wrap}.nav a{text-decoration:none;font-size:.9rem}.nav a:hover{color:var(--gold)}.hero{padding:54px 0 34px;display:grid;grid-template-columns:1.3fr 1fr;gap:25px;align-items:center}.eyebrow{color:var(--gold);font-weight:700;letter-spacing:.12em}h1{font-size:clamp(2.8rem,7vw,5.6rem);line-height:1.03;margin:12px 0;color:var(--gold);text-shadow:0 0 28px #c17b2240}h2{color:var(--gold);margin-top:0}p{margin:.6em 0}.muted{color:var(--muted)}.heroart{background:linear-gradient(135deg,#3b2c36,#14233d);border:1px solid #735a37;border-radius:24px;min-height:230px;display:grid;place-items:center;text-align:center;padding:24px;box-shadow:0 20px 60px #0005}.heroart .planet{font-size:6rem;line-height:1}.heroart strong{display:block;color:var(--gold);font-size:1.6rem}.btn{display:inline-block;background:var(--gold);color:#141b2a;border:0;border-radius:12px;padding:13px 22px;font-weight:800;text-decoration:none;cursor:pointer}.btn:hover{filter:brightness(1.08)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.card{background:linear-gradient(160deg,#1a2b44,#142238);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 12px 30px #0002}.stat .label{color:var(--muted);font-size:.9rem}.stat .number{font-size:1.65rem;font-weight:850;color:#fff}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin:16px 0}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left;min-width:520px}th,td{padding:11px 8px;border-bottom:1px solid var(--line)}th{color:var(--gold);font-size:.85rem}td{font-size:.9rem}.tag{display:inline-block;background:#5a4a2538;border:1px solid #8a733c;color:#ffe3a3;padding:3px 9px;border-radius:99px;font-size:.8rem}.formgrid{display:grid;gap:12px}input:not([type=checkbox]){display:block;width:100%;background:#f9fafb;color:#111827;border:1px solid #b4c0d1;border-radius:11px;padding:14px;font:inherit}label.check{display:flex;align-items:flex-start;gap:10px;font-size:.93rem}label.check input{margin-top:6px}#result{min-height:24px;overflow-wrap:anywhere}.notice{border-left:4px solid var(--gold);padding-left:14px;color:var(--muted);margin-top:15px}.foot{border-top:1px solid var(--line);margin-top:35px;padding:20px 0;color:var(--muted);font-size:.9rem}.pill{display:inline-block;background:#4a3923;border:1px solid #a17b2e;border-radius:99px;padding:4px 12px;color:#ffdd85;font-size:.78rem}@media(max-width:780px){.hero,.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.hero{padding-top:30px}.wrap{padding:16px}}@media(max-width:400px){.stats{grid-template-columns:1fr 1fr}.card{padding:16px}.stat .number{font-size:1.35rem}}
 </style>
 </head>
 <body>
-<main>
-<h1>🪐 SATURN BTC MINING</h1>
-<p>GLOBAL SOLO MINERS — społeczność górników Bitcoin SOLO.</p>
-
-<section class="panel">
-<h2>Główny adres BTC SATURN</h2>
-<p id="address">Oczekuje na potwierdzenie administratora</p>
-<small>Nie podłączaj koparki do wspólnego adresu przed zatwierdzeniem uczestnictwa i zasad rozliczeń.</small>
-<h2>Podział nagrody</h2>
-<p><strong>98% — potwierdzony znalazca bloku</strong></p>
-<p><strong>2% — SATURN</strong></p>
-<small>Wypłata wymaga niezależnego potwierdzenia znalazcy. Nie jest automatyczna.</small>
-</section>
-
-<section class="panel">
-<h2>Rejestracja górnika</h2>
-<form id="form">
-<input id="name" placeholder="Nazwa górnika" minlength="2" maxlength="60" required>
-<input id="btc" placeholder="Twój adres BTC do wypłaty" required>
-<input id="hash" type="number" step="any" min="0.001" max="1000000" placeholder="Moc TH/s" required>
-<label>
-<input type="checkbox" id="accept" required>
- Akceptuję zasady 98/2, weryfikację znalazcy i brak gwarancji znalezienia bloku.
-</label>
-<button type="submit">Wyślij zgłoszenie</button>
-</form>
-<p id="result" role="status"></p>
-</section>
-
-<section class="panel">
-<h2>Status SATURN</h2>
-<p>Rejestracje wymagają zatwierdzenia administratora.</p>
-<p>Identyfikacja koparek i rozliczenia bloków wymagają uruchomienia zaplecza SATURN.</p>
-<p class="notice">Nie publikujemy niepotwierdzonych statystyk ani informacji o znalezionych blokach.</p>
-</section>
-</main>
-
+<header class="top wrap"><div class="brand">🪐 SATURN <small>GLOBAL SOLO MINERS</small></div><nav class="nav"><a href="#start">Start</a><a href="#rejestracja">Rejestracja</a><a href="#gornicy">Górnicy</a><a href="#statystyki">Statystyki</a><a href="#zasady">Zasady</a></nav></header>
+<main class="wrap">
+<section class="hero" id="start"><div><div class="eyebrow">GLOBAL SOLO MINERS · BITCOIN SOLO</div><h1>SATURN<br>BTC MINING</h1><p style="font-size:1.25rem">Łączymy społeczność małych górników z wielką ambicją.</p><p class="muted">Budujemy społeczność wydobycia SOLO BTC. Rejestracja jest zgłoszeniem uczestnictwa, nie oznacza automatycznego podłączenia koparki ani prawa do nagrody.</p><p><span class="pill">Projekt w fazie przygotowania</span></p><p><a class="btn" href="#rejestracja">Dołącz do SATURNA</a></p></div><div class="heroart"><div><div class="planet">🪐</div><strong>SATURN</strong><div>🐆 Pantera &nbsp; • &nbsp; 🐕 Chico</div><p class="muted">+1, bez końca + Blockfund</p></div></div></section>
+<section class="stats" id="statystyki"><div class="card stat"><div class="label">Moc sieci SATURN</div><div class="number" id="totalPower">—</div><div class="muted">Brak zweryfikowanych danych na żywo</div></div><div class="card stat"><div class="label">Zarejestrowani górnicy</div><div class="number" id="minerCount">—</div><div class="muted">Dane wymagają potwierdzenia</div></div><div class="card stat"><div class="label">Aktywne koparki</div><div class="number" id="onlineCount">—</div><div class="muted">Brak publicznego odczytu</div></div><div class="card stat"><div class="label">Udział w sieci BTC</div><div class="number">—</div><div class="muted">Nie publikujemy szacunków jako faktów</div></div></section>
+<div class="grid"><section class="card" id="gornicy"><h2>🐆 Nasze Pantery</h2><p class="muted">Przykładowa lista urządzeń — bez potwierdzenia bieżącej aktywności.</p><div class="tablewrap"><table><thead><tr><th>Nazwa</th><th>Model</th><th>Moc</th><th>Status</th></tr></thead><tbody><tr><td>Pantera #1</td><td>Bitaxe Gamma 601</td><td>—</td><td><span class="tag">Niezweryfikowany</span></td></tr><tr><td>Pantera #2</td><td>Bitaxe Gamma 601</td><td>—</td><td><span class="tag">Niezweryfikowany</span></td></tr><tr><td>Pantera #3</td><td>Bitaxe Gamma 601</td><td>—</td><td><span class="tag">Niezweryfikowany</span></td></tr><tr><td>Pantera #4</td><td>Bitaxe Gamma 601</td><td>—</td><td><span class="tag">Niezweryfikowany</span></td></tr></tbody></table></div></section><section class="card" id="zasady"><h2>₿ Zasady nagrody</h2><p><strong>98%</strong> — zweryfikowany znalazca bloku</p><p><strong>2%</strong> — SATURN</p><p class="notice">To planowany model rozliczeń. Wypłata wymaga niezależnego potwierdzenia znalezienia bloku, uzgodnionych zasad i działającej infrastruktury. Nie jest automatyczna. Znalezienie bloku nie jest gwarantowane.</p><p class="muted">Główny adres BTC SATURN: oczekuje na potwierdzenie administratora. Nie przełączaj koparki przed zatwierdzeniem uczestnictwa i procedury rozliczeń.</p></section></div>
+<div class="grid"><section class="card" id="rejestracja"><h2>🤝 Rejestracja górnika</h2><p class="muted">Wyślij zgłoszenie do weryfikacji. Nie wysyłaj kluczy prywatnych ani seed phrase.</p><form id="form" class="formgrid"><input id="name" placeholder="Nazwa górnika" minlength="2" maxlength="60" required><input id="btc" placeholder="Twój publiczny adres BTC do wypłaty" required><input id="hash" type="number" step="any" min="0.001" max="1000000" placeholder="Moc TH/s" required><label class="check"><input id="accept" type="checkbox" required><span>Akceptuję zasady 98/2, weryfikację znalazcy i brak gwarancji znalezienia bloku.</span></label><button class="btn" type="submit" id="submitBtn">Wyślij zgłoszenie</button><p id="result" role="status" aria-live="polite"></p></form></section><section class="card"><h2>🪐 O projekcie</h2><p>GLOBAL SOLO MINERS to społeczność niezależnych górników Bitcoin SOLO. Naszym celem jest budowanie przejrzystego systemu rejestracji, identyfikacji koparek i weryfikacji zdarzeń wydobywczych.</p><h2>🐕 Nasz zespół</h2><p>🐆 Pantera — sprzęt do kopania</p><p>🐕 Chico — strażnik i motywacja</p><p>🪐 SATURN — projekt społecznościowy</p><p class="notice">Statystyki online zostaną uruchomione po niezależnym zweryfikowaniu danych serwera.</p></section></div>
+</main><footer class="wrap foot">SATURN BTC MINING · GLOBAL SOLO MINERS · Projekt w przygotowaniu · +1, bez końca</footer>
 <script>
-const REGISTRATION_API =
-  "https://zwlreipyvwbajocczbze.supabase.co/functions/v1/saturn-rejestracja";
-
-document.getElementById("form").addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  const result = document.getElementById("result");
-  result.textContent = "Wysyłanie zgłoszenia...";
-
-  const payload = {
-    miner_name: document.getElementById("name").value.trim(),
-    btc_address: document.getElementById("btc").value.trim(),
-    hashrate_th: Number(document.getElementById("hash").value)
-  };
-
-  try {
-    const response = await fetch(REGISTRATION_API, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(payload)
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      result.textContent = data.error || "Nie udało się wysłać zgłoszenia.";
-      return;
-    }
-
-    result.textContent = "Zgłoszenie przyjęte do weryfikacji!";
-    event.target.reset();
-
-  } catch (error) {
-    result.textContent = "Błąd połączenia. Spróbuj ponownie później.";
-  }
+const REGISTRATION_API = 'https://zwlreipywwbajocczbze.supabase.co/functions/v1/saturn-rejestracja';
+const form=document.getElementById('form');
+form.addEventListener('submit',async function(event){
+ event.preventDefault();
+ const result=document.getElementById('result');const btn=document.getElementById('submitBtn');
+ const btc=document.getElementById('btc').value.trim();
+ if(!/^(bc1[ac-hj-np-z02-9]{11,87}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/.test(btc)){result.textContent='Sprawdź format publicznego adresu Bitcoin.';return;}
+ const payload={miner_name:document.getElementById('name').value.trim(),btc_address:btc,hashrate_th:Number(document.getElementById('hash').value)};
+ btn.disabled=true;result.textContent='Wysyłanie zgłoszenia…';
+ try{
+  const response=await fetch(REGISTRATION_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const data=await response.json();
+  if(!response.ok){result.textContent=data.error||'Nie udało się wysłać zgłoszenia.';return;}
+  result.textContent='Zgłoszenie przyjęte do weryfikacji!';form.reset();
+ }catch(error){result.textContent='Błąd połączenia. Spróbuj ponownie później.';}
+ finally{btn.disabled=false;}
 });
 </script>
-</body>
-</html>
+</body></html>
