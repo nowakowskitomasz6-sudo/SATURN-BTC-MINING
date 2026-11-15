@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pl">
 <head>
@@ -88,32 +89,33 @@ form.addEventListener('submit', async function(event) {
 });
 </script>
 <script>
-// SATURN: próba odczytu statystyk CKPool.
-// Uwaga: endpoint i format odpowiedzi wymagają potwierdzenia.
 async function loadSaturnStats() {
-  const btcAddr = 'bc1q596uwd5cqnw00x9dkrrxzvxc6nvadj2vr3n376';
-  const targetUrl = 'https://solo.ckpool.org/users/' + encodeURIComponent(btcAddr);
-  const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl);
+  const STATS_API = 'https://zwlreipyvwbajocczbze.supabase.co/functions/v1/saturn-stats';
+  const SUPABASE_KEY = 'sb_publishable_Fyng7k63VBz36o1VR2-ywg_UeLoFCWP';
   try {
-    const res = await fetch(proxyUrl, {signal: AbortSignal.timeout(10000)});
+    const res = await fetch(STATS_API, {
+      headers: { 'apikey': SUPABASE_KEY }
+    });
     if (!res.ok) return;
     const data = await res.json();
     if (!data || typeof data !== 'object') return;
+
     if (data.hashrate5m) {
       document.getElementById('totalPower').textContent = String(data.hashrate5m) + ' H/s';
     }
     if (typeof data.workers === 'number') {
       document.getElementById('onlineCount').textContent = String(data.workers);
-      // Liczba workerów nie jest liczbą zarejestrowanych górników.
     }
-    if (Array.isArray(data.worker)) {
+    if (Array.isArray(data.worker) && data.worker.length > 0) {
       const tbody = document.querySelector('#gornicy tbody');
       if (!tbody) return;
       tbody.replaceChildren();
       data.worker.forEach((w, i) => {
         const tr = document.createElement('tr');
-        const name = typeof w.workername === 'string' ? (w.workername.split('.').slice(1).join('.') || ('Pantera #' + (i+1))) : ('Pantera #' + (i+1));
-        for (const value of [name, 'Model niezweryfikowany', String(w.hashrate5m || '—'), 'Dane z CKPool']) {
+        const name = typeof w.workername === 'string'
+          ? (w.workername.split('.').slice(1).join('.') || ('Pantera #' + (i + 1)))
+          : ('Pantera #' + (i + 1));
+        for (const value of [name, 'Bitaxe Gamma 601', String(w.hashrate5m || '—') + ' H/s', 'Online (CKPool)']) {
           const td = document.createElement('td');
           td.textContent = value;
           tr.appendChild(td);
@@ -121,7 +123,7 @@ async function loadSaturnStats() {
         tbody.appendChild(tr);
       });
     }
-  } catch (e) { console.warn('Statystyki CKPool niedostępne'); }
+  } catch (e) { console.warn('Błąd odczytu statystyk:', e); }
 }
 loadSaturnStats();
 setInterval(loadSaturnStats, 30000);
