@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pl">
 <head>
@@ -44,21 +45,48 @@ label.check{display:flex;align-items:flex-start;gap:10px;font-size:.93rem}label.
 <script>
 const REGISTRATION_API = 'https://zwlreipyvwbajocczbze.supabase.co/functions/v1/saturn-rejestracja';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Fyng7k63VBz36o1VR2-ywg_UeLoFCWP';
-const form=document.getElementById('form');
-form.addEventListener('submit',async function(event){
- event.preventDefault();
- const result=document.getElementById('result');const btn=document.getElementById('submitBtn');
- const btc=document.getElementById('btc').value.trim();
- if(!/^(bc1[ac-hj-np-z02-9]{11,87}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/.test(btc)){result.textContent='Sprawdź format publicznego adresu Bitcoin.';return;}
- const payload={miner_name:document.getElementById('name').value.trim(),btc_address:btc,hashrate_th:Number(document.getElementById('hash').value)};
- btn.disabled=true;result.textContent='Wysyłanie zgłoszenia…';
- try{
-  const response=await fetch(REGISTRATION_API,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify(payload)});
-  const data=await response.json().catch(()=>({}));
-  if(!response.ok){result.textContent=data.error||data.message||'Nie udało się wysłać zgłoszenia (HTTP '+response.status+').';return;}
-  result.textContent='Zgłoszenie przyjęte do weryfikacji!';form.reset();
- }catch(error){result.textContent='Błąd połączenia z serwerem rejestracji. Spróbuj ponownie później.';}
- finally{btn.disabled=false;}
+const form = document.getElementById('form');
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const result = document.getElementById('result');
+  const btn = document.getElementById('submitBtn');
+  const btc = document.getElementById('btc').value.trim();
+  if (!/^(bc1[ac-hj-np-z02-9]{11,87}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/.test(btc)) {
+    result.textContent = 'Sprawdź format publicznego adresu Bitcoin.';
+    return;
+  }
+  const payload = {
+    miner_name: document.getElementById('name').value.trim(),
+    btc_address: btc,
+    hashrate_th: Number(document.getElementById('hash').value)
+  };
+  btn.disabled = true;
+  result.textContent = 'Wysyłanie zgłoszenia…';
+  try {
+    const response = await fetch(REGISTRATION_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_PUBLISHABLE_KEY
+      },
+      body: JSON.stringify(payload)
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      result.textContent = data.error || data.message || 'Błąd serwera (HTTP ' + response.status + ').';
+      return;
+    }
+    const secret = data.secret_code || data.code || data.tajny_kod || '';
+    result.textContent = secret
+      ? 'Przyjęto! Twój tajny kod: ' + secret
+      : 'Zgłoszenie przyjęte do weryfikacji!';
+    form.reset();
+  } catch (error) {
+    result.textContent = 'Błąd połączenia. Spróbuj ponownie później.';
+  } finally {
+    btn.disabled = false;
+  }
 });
 </script>
-</body></html>
+</body>
+</html>
