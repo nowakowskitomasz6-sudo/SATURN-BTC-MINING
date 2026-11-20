@@ -255,6 +255,69 @@ const faqData={
 };
 function setFaqLang(l){const d=faqData[l]||faqData.pl;document.getElementById('faq-title').textContent=d.title;document.getElementById('faq-content').innerHTML=d.items.map(i=>`<details style="background:rgba(30,41,59,.9);padding:14px 16px;border-radius:10px;border:1px solid #334155;cursor:pointer"><summary style="font-weight:bold;color:#fde68a;font-size:1.05rem">${i.q}</summary><p style="margin:10px 0 0;color:#cbd5e1;line-height:1.5">${i.a}</p></details>`).join('')}
 setFaqLang('pl');
+<script>
+const REG_API='https://supabase.co';
+const STAT_API='https://supabase.co';
+const KEY='sb_publishable_Fyng7k63VBz36o1VR2-ywg_UeLoFCWP';
+const baseMiners=[
+  {miner_name:'Pantera 01 (Bitaxe)',hashrate_th:1.2},
+  {miner_name:'Pantera 02 (Bitaxe)',hashrate_th:1.2},
+  {miner_name:'Pantera 03 (Bitaxe)',hashrate_th:1.2},
+  {miner_name:'Pantera 04 (Bitaxe)',hashrate_th:1.2}
+];
+function drawMiners(list){
+  let sum=0;
+  list.forEach(m=>{if(m.status!=='duplicate'&&Number(m.hashrate_th)>0)sum+=Number(m.hashrate_th)});
+  document.getElementById('totalPower').textContent=sum.toFixed(2)+' TH/s';
+  document.getElementById('registeredCount').textContent=list.length;
+  document.getElementById('onlineCount').textContent=list.length;
+  const tb=document.getElementById('minersList');
+  tb.innerHTML='';
+  list.forEach(m=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${m.miner_name||'Koparka'}</td><td>${Number(m.hashrate_th||0).toFixed(2)} TH/s</td><td><span class="tag online">Aktywna (SOLO)</span></td>`;
+    tb.appendChild(tr);
+  });
+}
+drawMiners(baseMiners);
+async function loadStats(){
+  try{
+    const r=await fetch(STAT_API,{headers:{apikey:KEY}});
+    if(!r.ok)return;
+    const d=await r.json();
+    if(Array.isArray(d.miners)&&d.miners.length>0)drawMiners(d.miners);
+  }catch(e){}
+}
+loadStats();
+document.getElementById('form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const resEl=document.getElementById('result'),btn=document.getElementById('submitBtn'),btc=document.getElementById('btc').value.trim(),hash=Number(document.getElementById('hash').value);
+  btn.disabled=true;resEl.textContent='Wysyłanie...';
+  try{
+    const r=await fetch(REG_API,{method:'POST',headers:{'Content-Type':'application/json',apikey:KEY},body:JSON.stringify({miner_name:document.getElementById('name').value.trim(),btc_address:btc,hashrate_th:hash})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok){resEl.textContent=d.error||'Błąd '+r.status;return}
+    resEl.textContent='Przyjęto! Twoja moc zasiliła flotę SATURN.';
+    e.target.reset();loadStats();
+  }catch(err){resEl.textContent='Błąd połączenia'}finally{btn.disabled=false}
+});
+document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{navigator.clipboard.writeText(document.getElementById(b.dataset.copy).textContent);document.getElementById("copyStatus").textContent="Skopiowano!"}));
+const faqData={
+  pl:{title:"❓ Często zadawane pytania (FAQ)",items:[
+    {q:"1. Jak skonfigurować Bitaxe / NerdAxe?",a:"W AxeOS wpisz Stratum URL (solo.ckpool.org) i Port (3333), a w Stratum User wpisz SWÓJ adres BTC po kropce z nazwą workera."},
+    {q:"2. Czy kopię na swój własny portfel?",a:"Tak! Każdy kopie 100% SOLO na swój własny adres BTC. Cała nagroda za blok (3.125 BTC) trafia bezpośrednio do Ciebie."}
+  ]},
+  en:{title:"❓ Frequently Asked Questions (FAQ)",items:[
+    {q:"1. How to set up Bitaxe / NerdAxe?",a:"In AxeOS enter Stratum URL (solo.ckpool.org) and Port (3333). In Stratum User enter YOUR OWN BTC address followed by a dot and worker name."},
+    {q:"2. Do I mine to my own wallet?",a:"Yes! Everyone mines 100% SOLO to their own BTC address. 100% block reward goes straight to you."}
+  ]},
+  de:{title:"❓ Häufig gestellte Fragen (FAQ)",items:[
+    {q:"1. Wie verbinde ich meinen Bitaxe?",a:"Gib in AxeOS Stratum-URL (solo.ckpool.org) und Port (3333) ein. Trage unter Stratum User DEINE EIGENE BTC-Adresse ein."},
+    {q:"2. Mine ich auf meine eigene Wallet?",a:"Ja! Jeder mint 100% SOLO auf seine eigene BTC-Adresse."}
+  ]}
+};
+function setFaqLang(l){const d=faqData[l]||faqData.pl;document.getElementById('faq-title').textContent=d.title;document.getElementById('faq-content').innerHTML=d.items.map(i=>`<details style="background:rgba(30,41,59,.9);padding:14px;border-radius:10px;border:1px solid #334155"><summary style="font-weight:bold;color:#fde68a">${i.q}</summary><p style="margin:8px 0 0;color:#cbd5e1">${i.a}</p></details>`).join('')}
+setFaqLang('pl');
 </script>
 </body>
 </html>
