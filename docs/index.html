@@ -293,7 +293,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
   const ctx=canvas.getContext('2d');
   const chars='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const fontSize=20;
-  const columnSpacing=16;
+  const columnSpacing=13;
   let drops=[];
   function resize(){
     const dpr=Math.min(window.devicePixelRatio||1,1.5);
@@ -317,10 +317,10 @@ setLang('pl',document.querySelector('.lang-btns button'));
         const y=drop*fontSize;
         for(let trail=3;trail>0;trail--){
           const glyph=chars[Math.floor(Math.random()*chars.length)];
-          ctx.fillStyle='rgba(30,190,95,'+(0.10/trail)+')';
+          ctx.fillStyle='rgba(25,185,220,'+(0.10/trail)+')';
           ctx.fillText(glyph,x,y-trail*fontSize);
         }
-        ctx.fillStyle='rgba(105,255,155,.58)';
+        ctx.fillStyle='rgba(70,230,245,.72)';
         ctx.fillText(chars[Math.floor(Math.random()*chars.length)],x,y);
         if(y>window.innerHeight&&Math.random()>.975)drops[column]=0;
         else drops[column]+=1;
