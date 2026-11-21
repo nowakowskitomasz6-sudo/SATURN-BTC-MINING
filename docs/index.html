@@ -29,7 +29,7 @@ h2{color:#fff3d6;margin-top:0}
 .btn{display:inline-block;background:var(--gold);color:#141b2a;border:0;border-radius:12px;padding:12px 18px;font-weight:800;text-decoration:none;cursor:pointer}
 .btn-sm{padding:7px 12px;font-size:.85rem;border-radius:9px}
 .btn-tg{background:var(--tg);color:#fff}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:16px 0}
 .card{background:rgba(28,44,68,.92);border:1px solid var(--line);border-radius:18px;padding:20px}
 .stat .label{color:var(--muted);font-size:.88rem}
 .stat .number{font-size:1.6rem;font-weight:850;color:#fff;margin:4px 0}
@@ -89,6 +89,7 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
     </div>
   </section>
   <section class="stats">
+    <div class="card stat"><div class="label" id="lblDeclared">Moc zgłoszona floty</div><div class="number" id="declaredPower">— TH/s</div><p class="muted">Suma mocy wpisanej przy rejestracji</p></div>
     <div class="card stat"><div class="label" id="lblPower">Moc CKPool (ostatnie 5 min)</div><div class="number" id="totalPower">— TH/s</div><p class="muted">Dane na żywo ze wszystkich zarejestrowanych adresów BTC</p></div>
     <div class="card stat"><div class="label" id="lblCount">Zarejestrowane koparki</div><div class="number" id="registeredCount">0</div><p class="muted">Wspólna flota górników Bitaxe</p></div>
     <div class="card stat"><div class="label">Workery CKPool na żywo</div><div class="number" id="onlineCount">—</div><p class="muted">Suma workerów dla adresów floty</p></div>
@@ -175,6 +176,8 @@ document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',(
   setTimeout(()=>st.textContent='',2500);
 }));
 function drawMiners(list,stats){
+  const declared=list.reduce((sum,m)=>{const value=Number(m.hashrate_th);return sum+(Number.isFinite(value)?value:0)},0);
+  document.getElementById('declaredPower').textContent=declared.toFixed(2)+' TH/s';
   const rate=Number(stats.hashrate5m);document.getElementById('totalPower').textContent=stats.hashrate5m==null||!Number.isFinite(rate)?'Brak danych':(rate/1e12).toFixed(2)+' TH/s';
   // Moc na zywo pochodzi z CKPool.
   // Nie zastepuj statystyki CKPool deklarowana moca.
@@ -226,6 +229,7 @@ const i18n={
     heroDesc:"Społeczność niezależnych górników solo Bitaxe. Każdy kopie 100% SOLO na swój własny portfel BTC, a na stronie łączymy naszą wspólną moc floty!",
     heroBtnReg:"⚡ Zarejestruj koparkę",
     heroBtnTg:"💬 Dołącz do Telegrama",
+    lblDeclared:"Moc zgłoszona floty",
     lblPower:"Moc CKPool (ostatnie 5 min)",
     lblCount:"Zarejestrowane koparki",
     regTitle:"⚡ Konfiguracja CKPool & Rejestracja koparki",
@@ -240,6 +244,7 @@ const i18n={
     heroDesc:"Global community of Bitaxe solo miners. Everyone mines 100% SOLO to their own BTC wallet while combining our fleet power!",
     heroBtnReg:"⚡ Register Miner",
     heroBtnTg:"💬 Join Telegram",
+    lblDeclared:"Declared fleet hashrate",
     lblPower:"CKPool Hashrate (last 5 min)",
     lblCount:"Registered Miners",
     regTitle:"⚡ CKPool Setup & Miner Registration",
@@ -254,6 +259,7 @@ const i18n={
     heroDesc:"Globale Community von Bitaxe-Solo-Minern. Jeder mint 100% SOLO auf seine eigene BTC-Wallet, während wir unsere Gesamtleistung gemeinsam anzeigen!",
     heroBtnReg:"⚡ Miner registrieren",
     heroBtnTg:"💬 Telegram beitreten",
+    lblDeclared:"Gemeldete Flotten-Hashrate",
     lblPower:"CKPool-Hashrate (letzte 5 Minuten)",
     lblCount:"Registrierte Miner",
     regTitle:"⚡ CKPool-Setup & Miner-Registrierung",
@@ -269,7 +275,7 @@ function setLang(l,btn){
   document.querySelectorAll('.lang-btns button').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
   const t=i18n[l]||i18n.pl;
-  ['heroDesc','heroBtnReg','heroBtnTg','lblPower','lblCount','regTitle','listTitle'].forEach(k=>{
+  ['heroDesc','heroBtnReg','heroBtnTg','lblDeclared','lblPower','lblCount','regTitle','listTitle'].forEach(k=>{
     if(document.getElementById(k))document.getElementById(k).textContent=t[k];
   });
   document.getElementById('faq-title').textContent=t.faqTitle;
