@@ -89,9 +89,9 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
     </div>
   </section>
   <section class="stats">
-    <div class="card stat"><div class="label" id="lblPower">Wspólna moc floty SATURN</div><div class="number" id="totalPower">4.80 TH/s</div><p class="muted">Zsumowana moc zgłoszonych koparek</p></div>
-    <div class="card stat"><div class="label" id="lblCount">Zarejestrowane koparki</div><div class="number" id="registeredCount">4</div><p class="muted">Wspólna flota górników Bitaxe</p></div>
-    <div class="card stat"><div class="label">Aktywne urządzenia</div><div class="number" id="onlineCount">4</div><p class="muted">Status: Aktywna (SOLO)</p></div>
+    <div class="card stat"><div class="label" id="lblPower">Moc CKPool (ostatnie 5 min)</div><div class="number" id="totalPower">— TH/s</div><p class="muted">Dane na żywo ze wszystkich zarejestrowanych adresów BTC</p></div>
+    <div class="card stat"><div class="label" id="lblCount">Zarejestrowane koparki</div><div class="number" id="registeredCount">0</div><p class="muted">Wspólna flota górników Bitaxe</p></div>
+    <div class="card stat"><div class="label">Workery CKPool na żywo</div><div class="number" id="onlineCount">—</div><p class="muted">Suma workerów dla adresów floty</p></div>
     <div class="card stat"><div class="label">Nagroda za blok BTC</div><div class="number" style="color:var(--gold)">100% SOLO</div><p class="muted">Bezpośrednio na Twój portfel</p></div>
   </section>
   <section class="steps">
@@ -164,7 +164,7 @@ function updateWorkerPreview(){
   const nm=(document.getElementById('name').value.trim()||'Bitaxe').replace(/[^a-zA-Z0-9_-]/g,'');
   document.getElementById('cWorker').textContent=(btc||'TWÓJ_ADRES_BTC')+'.'+(nm||'Bitaxe');
   const w=document.getElementById('ckLiveWrap'),l=document.getElementById('ckLiveLink');
-  if(btc.length>20){w.style.display='block';l.href='https://ckpool.org}
+  if(btc.length>20){w.style.display='block';l.href='https://raw.stats.ckpool.org/users/'+encodeURIComponent(btc)}
   else{w.style.display='none'}
 }
 document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
@@ -174,17 +174,17 @@ document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',(
   st.textContent='✅ Skopiowano: '+txt;
   setTimeout(()=>st.textContent='',2500);
 }));
-function drawMiners(list){
-  let sum=0;
-  list.forEach(m=>{if(m.status!=='duplicate'&&Number(m.hashrate_th)>0)sum+=Number(m.hashrate_th)});
-  if(sum>0)document.getElementById('totalPower').textContent=sum.toFixed(2)+' TH/s';
-  document.getElementById('registeredCount').textContent=list.length;
-  document.getElementById('onlineCount').textContent=list.length;
+function drawMiners(list,stats){
+  const rate=Number(stats.hashrate5m);document.getElementById('totalPower').textContent=stats.hashrate5m==null||!Number.isFinite(rate)?'Brak danych':(rate/1e12).toFixed(2)+' TH/s';
+  // Moc na zywo pochodzi z CKPool.
+  // Nie zastepuj statystyki CKPool deklarowana moca.
+  document.getElementById('registeredCount').textContent=Number(stats.registered_count??list.length);
+  document.getElementById('onlineCount').textContent=Number(stats.workers??0);
   const tb=document.getElementById('minersList');
   tb.innerHTML='';
   list.forEach(m=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${m.miner_name||'Koparka'}</td><td>${Number(m.hashrate_th||0).toFixed(2)} TH/s</td><td><span class="tag">Aktywna (SOLO)</span></td>`;
+    const status=m.live_available?(m.online?'Online · CKPool':'Offline · CKPool'):'Brak danych CKPool';tr.innerHTML=`<td>${m.miner_name||'Koparka'}</td><td>${Number(m.hashrate_th||0).toFixed(2)} TH/s</td><td><span class="tag">${status}</span></td>`;
     tb.appendChild(tr);
   });
 }
@@ -193,7 +193,7 @@ async function loadStats(){
     const r=await fetch(STAT_API,{headers:{apikey:KEY}});
     if(!r.ok)return;
     const d=await r.json();
-    if(Array.isArray(d.miners)&&d.miners.length>0)drawMiners(d.miners);
+    if(Array.isArray(d.miners))drawMiners(d.miners,d);
   }catch(e){}
 }
 loadStats();
@@ -226,7 +226,7 @@ const i18n={
     heroDesc:"Społeczność niezależnych górników solo Bitaxe. Każdy kopie 100% SOLO na swój własny portfel BTC, a na stronie łączymy naszą wspólną moc floty!",
     heroBtnReg:"⚡ Zarejestruj koparkę",
     heroBtnTg:"💬 Dołącz do Telegrama",
-    lblPower:"Wspólna moc floty SATURN",
+    lblPower:"Moc CKPool (ostatnie 5 min)",
     lblCount:"Zarejestrowane koparki",
     regTitle:"⚡ Konfiguracja CKPool & Rejestracja koparki",
     listTitle:"🐆 Zgłoszone urządzenia (Pantery)",
@@ -240,7 +240,7 @@ const i18n={
     heroDesc:"Global community of Bitaxe solo miners. Everyone mines 100% SOLO to their own BTC wallet while combining our fleet power!",
     heroBtnReg:"⚡ Register Miner",
     heroBtnTg:"💬 Join Telegram",
-    lblPower:"Combined SATURN Fleet Power",
+    lblPower:"CKPool Hashrate (last 5 min)",
     lblCount:"Registered Miners",
     regTitle:"⚡ CKPool Setup & Miner Registration",
     listTitle:"🐆 Registered Devices (Panthers)",
@@ -254,7 +254,7 @@ const i18n={
     heroDesc:"Globale Community von Bitaxe-Solo-Minern. Jeder mint 100% SOLO auf seine eigene BTC-Wallet, während wir unsere Gesamtleistung gemeinsam anzeigen!",
     heroBtnReg:"⚡ Miner registrieren",
     heroBtnTg:"💬 Telegram beitreten",
-    lblPower:"Gesamtleistung der SATURN-Flotte",
+    lblPower:"CKPool-Hashrate (letzte 5 Minuten)",
     lblCount:"Registrierte Miner",
     regTitle:"⚡ CKPool-Setup & Miner-Registrierung",
     listTitle:"🐆 Registrierte Geräte (Panther)",
