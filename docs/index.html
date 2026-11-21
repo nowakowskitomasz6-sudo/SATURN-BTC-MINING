@@ -8,6 +8,8 @@
 :root{color-scheme:dark;--bg:#172943;--gold:#ffcb49;--muted:#c6d2e1;--line:#526681;--tg:#229ED9}
 *{box-sizing:border-box}
 body{margin:0;background:linear-gradient(rgba(5,9,24,.48),rgba(5,9,24,.62)),url('SATURN_TLO_WERSJA_2(2).jpg') center center/cover fixed;color:#fff;font:16px/1.6 system-ui,sans-serif}
+#matrix-bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.48}
+body>header,body>main,body>footer{position:relative;z-index:1}
 a{color:inherit}
 .wrap{max-width:1200px;margin:auto;padding:18px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
@@ -57,6 +59,7 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
 </style>
 </head>
 <body>
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
 <header class="top wrap">
   <div class="brand">🪐 SATURN <small>GLOBAL SOLO MINERS</small></div>
   <nav>
@@ -282,6 +285,50 @@ function setLang(l,btn){
   document.getElementById('faq-content').innerHTML=t.faqs.map(i=>`<details style="background:rgba(15,23,42,.8);padding:12px;border-radius:10px;border:1px solid #334155"><summary style="font-weight:bold;color:#fde68a;cursor:pointer">${i.q}</summary><p style="margin:8px 0 0;color:#cbd5e1">${i.a}</p></details>`).join('');
 }
 setLang('pl',document.querySelector('.lang-btns button'));
+</script>
+<script>
+(()=>{
+  const canvas=document.getElementById('matrix-bg');
+  if(!canvas||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const ctx=canvas.getContext('2d');
+  const chars='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const fontSize=15;
+  let drops=[];
+  function resize(){
+    const dpr=Math.min(window.devicePixelRatio||1,1.5);
+    canvas.width=Math.round(window.innerWidth*dpr);
+    canvas.height=Math.round(window.innerHeight*dpr);
+    canvas.style.width=window.innerWidth+'px';
+    canvas.style.height=window.innerHeight+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    drops=Array.from({length:Math.ceil(window.innerWidth/fontSize)},()=>Math.random()*-35);
+  }
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  let lastFrame=0;
+  function rain(time){
+    if(time-lastFrame>=55){
+      lastFrame=time;
+      ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+      ctx.font=fontSize+'px monospace';
+      drops.forEach((drop,column)=>{
+        const x=column*fontSize;
+        const y=drop*fontSize;
+        for(let trail=3;trail>0;trail--){
+          const glyph=chars[Math.floor(Math.random()*chars.length)];
+          ctx.fillStyle='rgba(30,190,95,'+(0.10/trail)+')';
+          ctx.fillText(glyph,x,y-trail*fontSize);
+        }
+        ctx.fillStyle='rgba(105,255,155,.58)';
+        ctx.fillText(chars[Math.floor(Math.random()*chars.length)],x,y);
+        if(y>window.innerHeight&&Math.random()>.975)drops[column]=0;
+        else drops[column]+=1;
+      });
+    }
+    requestAnimationFrame(rain);
+  }
+  requestAnimationFrame(rain);
+})();
 </script>
 </body>
 </html>
