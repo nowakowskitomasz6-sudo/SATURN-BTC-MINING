@@ -292,8 +292,8 @@ setLang('pl',document.querySelector('.lang-btns button'));
   if(!canvas||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   const ctx=canvas.getContext('2d');
   const chars='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const fontSize=20;
-  const columnSpacing=10;
+  const fontSize=14;
+  const columnSpacing=6.7;
   let drops=[];
   function resize(){
     const dpr=Math.min(window.devicePixelRatio||1,1.5);
@@ -329,7 +329,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
       });
       if(fundDrops.length===0&&time>=nextFundAt){
         const label='BLOCKFUND';
-        ctx.font='bold '+(fontSize+2)+'px monospace';
+        ctx.font='bold 22px monospace';
         const labelWidth=ctx.measureText(label).width;
         fundDrops=Array.from({length:3},(_,i)=>({
           x:Math.random()*Math.max(0,window.innerWidth-labelWidth),
@@ -338,7 +338,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
         nextFundAt=time+12000+Math.random()*10000;
       }
       fundDrops=fundDrops.filter(drop=>{
-        ctx.font='bold '+(fontSize+2)+'px monospace';
+        ctx.font='bold 22px monospace';
         ctx.fillStyle='rgba(70,230,245,.96)';
         ctx.shadowColor='rgba(70,230,245,.8)';
         ctx.shadowBlur=10;
