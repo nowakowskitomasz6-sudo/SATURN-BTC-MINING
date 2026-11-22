@@ -342,7 +342,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
     canvas.style.height=window.innerHeight+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
     drops=Array.from({length:Math.ceil(window.innerWidth/columnSpacing)},()=>Math.random()*-35);
-    coins=Array.from({length:window.innerWidth<600?9:14},()=>({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:13+Math.random()*6,speed:[.72,1.08,1.45][Math.floor(Math.random()*3)],spin:Math.random()*6.28,spinSpeed:.035+Math.random()*.045,tilt:Math.random()*3.14,tiltSpeed:(Math.random()-.5)*.025}));
+    coins=Array.from({length:window.innerWidth<600?9:14},()=>({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:13+Math.random()*6,speed:[.72,1.08,1.45][Math.floor(Math.random()*3)]*fontSize,spin:Math.random()*6.28,spinSpeed:.035+Math.random()*.045,tilt:Math.random()*3.14,tiltSpeed:(Math.random()-.5)*.025}));
   }
   resize();
   window.addEventListener('resize',resize,{passive:true});
