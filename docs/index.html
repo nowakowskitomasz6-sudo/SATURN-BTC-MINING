@@ -232,7 +232,7 @@ async function loadLiveLogs(){
         const t=new Date(row.created_at).toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
         return '['+t+'] '+String(row.miner||'Bitaxe')+': '+String(row.line||'');
       }).join(String.fromCharCode(10));
-      logEl.scrollTop=logEl.scrollHeight;
+      requestAnimationFrame(()=>{logEl.scrollTop=logEl.scrollHeight;requestAnimationFrame(()=>{logEl.scrollTop=logEl.scrollHeight})});
     }
     const age=Math.max(0,Math.floor((Date.now()-new Date(logs[logs.length-1].created_at).getTime())/1000));
     statusEl.textContent=age<10?'STRUMIEŃ AKTYWNY · OSTATNI LOG '+age+' s TEMU':'OCZEKIWANIE NA NOWE LOGI · OSTATNI '+age+' s TEMU';
