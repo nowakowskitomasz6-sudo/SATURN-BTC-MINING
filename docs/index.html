@@ -317,7 +317,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
       drops.forEach((drop,column)=>{
         const x=column*columnSpacing;
         const y=drop*fontSize;
-        for(let trail=3;trail>0;trail--){
+        for(let trail=5;trail>0;trail--){
           const glyph=chars[Math.floor(Math.random()*chars.length)];
           ctx.fillStyle='rgba(25,185,220,'+(0.10/trail)+')';
           ctx.fillText(glyph,x,y-trail*fontSize);
