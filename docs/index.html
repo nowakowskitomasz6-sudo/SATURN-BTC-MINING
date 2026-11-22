@@ -327,7 +327,8 @@ setLang('pl',document.querySelector('.lang-btns button'));
 <script>
 (()=>{
   const canvas=document.getElementById('matrix-bg');
-  if(!canvas||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!canvas)return;
+  const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ctx=canvas.getContext('2d');
   const chars='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const fontSize=14;
@@ -349,7 +350,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
   let fundDrops=[];
   let nextFundAt=performance.now()+7000;
   function rain(time){
-    if(time-lastFrame>=55){
+    if(time-lastFrame>=(reducedMotion?110:55)){
       lastFrame=time;
       ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
       ctx.font=fontSize+'px monospace';
