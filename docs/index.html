@@ -222,7 +222,21 @@ async function loadStats(){
   }catch(e){}
 }
 loadStats();
-setInterval(loadStats,30000);
+let nextPoolRefresh=Date.now()+30000;
+setInterval(()=>{nextPoolRefresh=Date.now()+30000;loadStats();},30000);
+setInterval(()=>{
+  const liveLogEl=document.getElementById('liveLog');
+  if(!liveLogEl)return;
+  const now=new Date();
+  const remaining=Math.max(0,Math.ceil((nextPoolRefresh-Date.now())/1000));
+  const time=now.toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const rows=liveLogEl.textContent.split(String.fromCharCode(10));
+  if(rows[0].startsWith('Czekam na dane'))rows.length=0;
+  rows.push('['+time+'] Monitor CKPool: kolejny odczyt za '+remaining+' s');
+  if(rows.length>18)rows.splice(0,rows.length-18);
+  liveLogEl.textContent=rows.join(String.fromCharCode(10));
+  liveLogEl.scrollTop=liveLogEl.scrollHeight;
+},1200);
 document.getElementById('form').addEventListener('submit',async e=>{
   e.preventDefault();
   const resEl=document.getElementById('result');
