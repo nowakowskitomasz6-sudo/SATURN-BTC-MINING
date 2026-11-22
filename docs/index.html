@@ -322,10 +322,10 @@ setLang('pl',document.querySelector('.lang-btns button'));
           ctx.fillStyle='rgba(25,185,220,'+(0.10/trail)+')';
           ctx.fillText(glyph,x,y-trail*fontSize);
         }
-        else drops[column]+=(column%3===0?1.45:column%3===1?.72:1.08);ctx.fillStyle=Math.random()<.08?'#dfffff':'rgba(70,230,245,.72)';
+        ctx.fillStyle=Math.random()<.08?'#dfffff':'rgba(70,230,245,.72)';
         ctx.fillText(chars[Math.floor(Math.random()*chars.length)],x,y);
         if(y>window.innerHeight&&Math.random()>.975)drops[column]=0;
-        else drops[column]+=(column%3===0?1.45:column%3===1?.72:1.08);
+        else drops[column]+=(column%3===0?1.45:column%3===1?0.72:1.08);
       });
       if(fundDrops.length===0&&time>=nextFundAt){
         const label='BLOCKFUND';
