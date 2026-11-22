@@ -332,7 +332,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
   const chars='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const fontSize=14;
   const columnSpacing=4.5;
-  let drops=[];
+  let drops=[]; let coins=[];
   function resize(){
     const dpr=Math.min(window.devicePixelRatio||1,1.5);
     canvas.width=Math.round(window.innerWidth*dpr);
@@ -341,6 +341,7 @@ setLang('pl',document.querySelector('.lang-btns button'));
     canvas.style.height=window.innerHeight+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
     drops=Array.from({length:Math.ceil(window.innerWidth/columnSpacing)},()=>Math.random()*-35);
+    coins=Array.from({length:window.innerWidth<600?9:14},()=>({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:13+Math.random()*6,speed:.45+Math.random()*.8,spin:Math.random()*6.28,spinSpeed:.035+Math.random()*.045,tilt:Math.random()*3.14,tiltSpeed:(Math.random()-.5)*.025}));
   }
   resize();
   window.addEventListener('resize',resize,{passive:true});
@@ -364,6 +365,22 @@ setLang('pl',document.querySelector('.lang-btns button'));
         ctx.fillText(chars[Math.floor(Math.random()*chars.length)],x,y);
         if(y>window.innerHeight&&Math.random()>.975)drops[column]=0;
         else drops[column]+=(column%3===0?1.45:column%3===1?0.72:1.08);
+      });      coins.forEach(coin=>{
+        coin.y+=coin.speed;
+        coin.spin+=coin.spinSpeed;
+        coin.tilt+=coin.tiltSpeed;
+        if(coin.y>window.innerHeight+coin.r*2){coin.y=-coin.r*2;coin.x=Math.random()*window.innerWidth}
+        ctx.save();
+        ctx.translate(coin.x,coin.y);
+        ctx.rotate(coin.tilt);
+        ctx.scale(Math.max(.16,Math.abs(Math.cos(coin.spin))),1);
+        const gold=ctx.createLinearGradient(-coin.r,-coin.r,coin.r,coin.r);
+        gold.addColorStop(0,'#fff2a6');gold.addColorStop(.45,'#f7c948');gold.addColorStop(1,'#b7791f');
+        ctx.beginPath();ctx.arc(0,0,coin.r,0,Math.PI*2);ctx.fillStyle=gold;ctx.fill();
+        ctx.lineWidth=2;ctx.strokeStyle='#ffe995';ctx.stroke();
+        ctx.beginPath();ctx.arc(0,0,coin.r-3,0,Math.PI*2);ctx.lineWidth=1;ctx.strokeStyle='rgba(110,67,5,.75)';ctx.stroke();
+        ctx.fillStyle='#583800';ctx.font='bold '+Math.round(coin.r*1.15)+'px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('₿',0,1);
+        ctx.restore();
       });
       if(fundDrops.length===0&&time>=nextFundAt){
         const label='BLOCKFUND';
