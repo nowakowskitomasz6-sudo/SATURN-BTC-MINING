@@ -99,9 +99,10 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
     <div class="card stat"><div class="label">Nagroda za blok BTC</div><div class="number" style="color:var(--gold)">100% SOLO</div><p class="muted">Bezpośrednio na Twój portfel</p></div>
   </section>
 <section class="card" style="margin:16px 0;background:rgba(3,10,6,.96);border:1px solid #31f36f;box-shadow:0 0 22px #11d95a33">
-  <h2 style="color:#43ff76;font-family:ui-monospace,monospace;margin-bottom:10px">SATURN LIVE | CKPOOL</h2>
-  <pre id="liveLog" role="log" aria-live="polite" style="margin:0;padding:14px;max-height:210px;overflow:auto;white-space:pre-wrap;border-radius:10px;background:#020805;color:#45ff70;font:14px/1.6 ui-monospace,Consolas,monospace;text-shadow:0 0 6px #1baa51">Czekam na dane CKPool...</pre>
-  <p class="muted" style="margin:8px 0 0">Status puli · aktualizacja co 30 sekund · bez adresów BTC</p>
+  <h2 style="color:#43ff76;font-family:ui-monospace,monospace;margin-bottom:6px">SATURN LIVE | LOGI KOPAREK</h2>
+  <div id="liveStatus" style="color:#66f5a5;font:700 12px/1.5 ui-monospace,Consolas,monospace;margin-bottom:8px">OCZEKIWANIE NA PRZEKAŹNIK</div>
+  <pre id="liveLog" role="log" aria-live="polite" style="margin:0;padding:14px;max-height:260px;overflow:auto;white-space:pre-wrap;border-radius:10px;background:#020805;color:#45ff70;font:13px/1.55 ui-monospace,Consolas,monospace;text-shadow:0 0 6px #1baa51">Oczekiwanie na logi z koparki...</pre>
+  <p class="muted" style="margin:8px 0 0">Strumień AxeOS · odświeżanie na bieżąco · adresy BTC i dane dostępowe są ukrywane</p>
 </section>
   <section class="steps">
     <div class="card"><span class="step-num">KROK 1</span><h3 style="margin:4px 0">Skopiuj dane CKPool</h3><p class="muted">Ustaw solo.ckpool.org, port 3333, hasło x oraz SWÓJ własny adres BTC w AxeOS.</p></div>
@@ -160,6 +161,7 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
 const H='zwlreipyvwbajocczbze.supabase.co';
 const REG_API='https://'+H+'/functions/v1/saturn-rejestracja';
 const STAT_API='https://'+H+'/functions/v1/saturn-stats';
+const LOG_API='https://'+H+'/functions/v1/saturn-live-logs';
 const KEY='sb_publishable_Fyng7k63VBz36o1VR2-ywg_UeLoFCWP';
 function openJoinPanel(){
   const el=document.getElementById('rejestracja');
@@ -191,20 +193,6 @@ function drawMiners(list,stats){
   // Nie zastepuj statystyki CKPool deklarowana moca.
   document.getElementById('registeredCount').textContent=Number(stats.registered_count??list.length);
   document.getElementById('onlineCount').textContent=Number(stats.workers??0);
-  const liveLogEl=document.getElementById('liveLog');
-  if(liveLogEl){
-    const logTime=new Date().toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    const poolRate=Number(stats.hashrate5m);
-    const poolRateText=stats.hashrate5m!=null&&Number.isFinite(poolRate)?(poolRate/1e12).toFixed(2)+' TH/s':'brak danych';
-    const workerCount=Number(stats.workers??0);
-    const minerCount=Number(stats.registered_count??list.length);
-    liveLogEl.textContent=[
-      '['+logTime+'] CKPool: '+workerCount+' workerów online',
-      '['+logTime+'] Moc 5 min: '+poolRateText,
-      '['+logTime+'] Zarejestrowane koparki: '+minerCount,
-      '['+logTime+'] Odczyt zaktualizowany'
-    ].join(String.fromCharCode(10));
-  }
   const tb=document.getElementById('minersList');
   tb.innerHTML='';
   list.forEach(m=>{
@@ -222,21 +210,38 @@ async function loadStats(){
   }catch(e){}
 }
 loadStats();
-let nextPoolRefresh=Date.now()+30000;
-setInterval(()=>{nextPoolRefresh=Date.now()+30000;loadStats();},30000);
-setInterval(()=>{
-  const liveLogEl=document.getElementById('liveLog');
-  if(!liveLogEl)return;
-  const now=new Date();
-  const remaining=Math.max(0,Math.ceil((nextPoolRefresh-Date.now())/1000));
-  const time=now.toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  const rows=liveLogEl.textContent.split(String.fromCharCode(10));
-  if(rows[0].startsWith('Czekam na dane'))rows.length=0;
-  rows.push('['+time+'] Monitor CKPool: kolejny odczyt za '+remaining+' s');
-  if(rows.length>18)rows.splice(0,rows.length-18);
-  liveLogEl.textContent=rows.join(String.fromCharCode(10));
-  liveLogEl.scrollTop=liveLogEl.scrollHeight;
-},1200);
+setInterval(()=>{loadStats();},30000);
+let lastLogId=0;
+async function loadLiveLogs(){
+  const logEl=document.getElementById('liveLog');
+  const statusEl=document.getElementById('liveStatus');
+  try{
+    const r=await fetch(LOG_API,{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    const logs=Array.isArray(d.logs)?d.logs:[];
+    if(!logs.length){
+      if(lastLogId===0)logEl.textContent='Oczekiwanie na logi z koparki...';
+      statusEl.textContent='POŁĄCZONO · OCZEKIWANIE NA LOGI';
+      return;
+    }
+    const newest=Number(logs[logs.length-1].id)||0;
+    if(newest!==lastLogId){
+      lastLogId=newest;
+      logEl.textContent=logs.slice(-70).map(row=>{
+        const t=new Date(row.created_at).toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+        return '['+t+'] '+String(row.miner||'Bitaxe')+': '+String(row.line||'');
+      }).join(String.fromCharCode(10));
+      logEl.scrollTop=logEl.scrollHeight;
+    }
+    const age=Math.max(0,Math.floor((Date.now()-new Date(logs[logs.length-1].created_at).getTime())/1000));
+    statusEl.textContent=age<10?'STRUMIEŃ AKTYWNY · OSTATNI LOG '+age+' s TEMU':'OCZEKIWANIE NA NOWE LOGI · OSTATNI '+age+' s TEMU';
+  }catch(e){
+    statusEl.textContent='BRAK POŁĄCZENIA Z PODGLĄDEM LOGÓW';
+  }
+}
+loadLiveLogs();
+setInterval(loadLiveLogs,1500);
 document.getElementById('form').addEventListener('submit',async e=>{
   e.preventDefault();
   const resEl=document.getElementById('result');
@@ -388,3 +393,4 @@ setLang('pl',document.querySelector('.lang-btns button'));
 </script>
 </body>
 </html>
+
