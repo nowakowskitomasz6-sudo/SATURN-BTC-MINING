@@ -368,18 +368,20 @@ setLang('pl',document.querySelector('.lang-btns button'));
       });      coins.forEach(coin=>{
         coin.y+=coin.speed;
         coin.spin+=coin.spinSpeed;
-        coin.tilt+=coin.tiltSpeed;
+        // Spada pionowo; bez bocznego znoszenia.
         if(coin.y>window.innerHeight+coin.r*2){coin.y=-coin.r*2;coin.x=Math.random()*window.innerWidth}
         ctx.save();
         ctx.translate(coin.x,coin.y);
-        ctx.rotate(coin.tilt);
-        ctx.scale(Math.max(.16,Math.abs(Math.cos(coin.spin))),1);
+        ctx.rotate(0);
+        ctx.scale(Math.max(.06,Math.abs(Math.cos(coin.spin))),1);
         const gold=ctx.createLinearGradient(-coin.r,-coin.r,coin.r,coin.r);
         gold.addColorStop(0,'#fff2a6');gold.addColorStop(.45,'#f7c948');gold.addColorStop(1,'#b7791f');
-        ctx.beginPath();ctx.arc(0,0,coin.r,0,Math.PI*2);ctx.fillStyle=gold;ctx.fill();
-        ctx.lineWidth=2;ctx.strokeStyle='#ffe995';ctx.stroke();
+        ctx.shadowColor='rgba(64,220,255,.7)';ctx.shadowBlur=10;ctx.beginPath();ctx.arc(0,0,coin.r,0,Math.PI*2);ctx.fillStyle=gold;ctx.fill();
+        ctx.shadowBlur=0;ctx.lineWidth=2;ctx.strokeStyle='#baf7ff';ctx.stroke();
         ctx.beginPath();ctx.arc(0,0,coin.r-3,0,Math.PI*2);ctx.lineWidth=1;ctx.strokeStyle='rgba(110,67,5,.75)';ctx.stroke();
-        ctx.fillStyle='#583800';ctx.font='bold '+Math.round(coin.r*1.15)+'px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('₿',0,1);
+        ctx.beginPath();ctx.arc(0,0,coin.r*.66,0,Math.PI*2);ctx.lineWidth=.8;ctx.strokeStyle='rgba(255,250,205,.9)';ctx.stroke();
+        for(let n=0;n<18;n++){const a=n*Math.PI/9;ctx.beginPath();ctx.moveTo(Math.cos(a)*coin.r*.72,Math.sin(a)*coin.r*.72);ctx.lineTo(Math.cos(a)*coin.r*.84,Math.sin(a)*coin.r*.84);ctx.lineWidth=.8;ctx.strokeStyle='#71430f';ctx.stroke();}
+        ctx.fillStyle='#176477';ctx.strokeStyle='#c9fbff';ctx.lineWidth=.7;ctx.font='bold '+Math.round(coin.r*1.18)+'px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.strokeText('₿',0,1);ctx.fillText('₿',0,1);
         ctx.restore();
       });
       if(fundDrops.length===0&&time>=nextFundAt){
