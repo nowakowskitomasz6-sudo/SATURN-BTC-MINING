@@ -58,22 +58,31 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
 @media(max-width:420px){.stats{grid-template-columns:1fr}.card{padding:16px}}
 
 /* SATURN multilingual 3D cube: isolated from the rest of the site */
-.saturn-cube-card{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:245px;overflow:hidden;perspective:850px}
-.saturn-cube-scene{width:155px;height:155px;display:grid;place-items:center;cursor:pointer;perspective:750px;touch-action:manipulation;outline-offset:12px}
-.saturn-cube-scene:focus-visible{outline:2px solid var(--gold);border-radius:12px}
-.saturn-cube{position:relative;width:116px;height:116px;transform-style:preserve-3d;animation:saturn-cube-spin 13s linear infinite}
-.saturn-cube-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;border:2px solid #ffcb49;border-radius:9px;background:linear-gradient(145deg,rgba(38,65,108,.97),rgba(8,17,39,.97));box-shadow:inset 0 0 20px #ffcb4925,0 0 16px #ffcb4930;color:#fff;font-size:13px;backface-visibility:visible}
-.saturn-cube-face span{color:#ffcb49;font-size:13px;font-weight:800}
-.saturn-cube-face b{font-size:13px;line-height:1.25;padding:0 5px}
-.saturn-cube-face.front{transform:translateZ(58px)}
-.saturn-cube-face.back{transform:rotateY(180deg) translateZ(58px)}
-.saturn-cube-face.right{transform:rotateY(90deg) translateZ(58px)}
-.saturn-cube-face.left{transform:rotateY(-90deg) translateZ(58px)}
-.saturn-cube-face.top{transform:rotateX(90deg) translateZ(58px)}
-.saturn-cube-face.bottom{transform:rotateX(-90deg) translateZ(58px)}
-.saturn-cube-caption{font-size:.85rem;color:var(--muted);text-align:center;margin:16px 0 0}
-@keyframes saturn-cube-spin{from{transform:rotateX(-20deg) rotateY(0deg)}to{transform:rotateX(-20deg) rotateY(360deg)}}
-@media(prefers-reduced-motion:reduce){.saturn-cube{animation:none;transform:rotateX(-20deg) rotateY(28deg)}}
+.saturn-cube-card{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:295px;overflow:hidden}
+.saturn-cube-scene{width:230px;height:230px;display:grid;place-items:center;perspective:900px}
+.saturn-cube{position:relative;width:178px;height:178px;transform-style:preserve-3d;animation:saturn-turn 30s ease-in-out infinite}
+.saturn-cube-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px;text-align:center;box-sizing:border-box;border:2px solid #46caff;border-radius:9px;background:linear-gradient(140deg,#123b73,#061631 85%);box-shadow:inset 0 0 26px #22baff99,0 0 23px #27bfff99;color:#fff;backface-visibility:visible}
+.saturn-cube-face span{font-size:27px;color:#e3f7ff}
+.saturn-cube-face b{font-size:17px;line-height:1.2;font-weight:900;text-shadow:0 1px 8px #48d4ff;overflow-wrap:anywhere}
+.saturn-cube-face small{font-size:11px;line-height:1.25;color:#e0f4ff;font-weight:650}
+.saturn-cube-face em{font-size:9px;font-style:normal;color:#89dfff;position:absolute;bottom:9px}
+.saturn-cube-face.front{transform:translateZ(89px)}
+.saturn-cube-face.back{transform:rotateY(180deg) translateZ(89px)}
+.saturn-cube-face.right{transform:rotateY(90deg) translateZ(89px)}
+.saturn-cube-face.left{transform:rotateY(-90deg) translateZ(89px)}
+.saturn-cube-face.top{transform:rotateX(90deg) translateZ(89px)}
+.saturn-cube-face.bottom{transform:rotateX(-90deg) translateZ(89px)}
+.saturn-cube-caption{font-size:.83rem;color:var(--muted);text-align:center;margin:8px 0 0}
+@keyframes saturn-turn{
+0%,12%{transform:rotateX(0) rotateY(0)}
+17%,29%{transform:rotateX(0) rotateY(-90deg)}
+34%,46%{transform:rotateX(0) rotateY(-180deg)}
+51%,63%{transform:rotateX(0) rotateY(-270deg)}
+68%,80%{transform:rotateX(-90deg) rotateY(-360deg)}
+85%,97%{transform:rotateX(90deg) rotateY(-360deg)}
+100%{transform:rotateX(0) rotateY(-360deg)}
+}
+@media(prefers-reduced-motion:reduce){.saturn-cube{animation:none;transform:rotateX(0) rotateY(0)}}
 </style>
 </head>
 <body>
@@ -104,17 +113,17 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
       </div>
     </div>
     <div class="heroart saturn-cube-card">
-      <div class="saturn-cube-scene" id="saturnCube" role="button" tabindex="0" aria-label="Change cube language" title="Tap to change language">
+      <div class="saturn-cube-scene" id="saturnCube" aria-label="SATURN BTC MINING — informacje w języku przeglądarki">
         <div class="saturn-cube">
-          <div class="saturn-cube-face front"><span>🪐 SATURN</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face back"><span>⚡ BITCOIN</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face right"><span>🌍 GLOBAL</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face left"><span>⛏ BITAXE</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face top"><span>🪐 SATURN</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face bottom"><span>⚡ BTC</span><b data-cube-text>100% SOLO</b></div>
+          <div class="saturn-cube-face front"><span>🪐</span><b data-cube-face="0"></b><small data-cube-sub="0"></small><em>saturnbtcmining.com</em></div>
+          <div class="saturn-cube-face back"><span>🆓</span><b data-cube-face="1"></b><small data-cube-sub="1"></small><em>saturnbtcmining.com</em></div>
+          <div class="saturn-cube-face right"><span>₿</span><b data-cube-face="2"></b><small data-cube-sub="2"></small><em>saturnbtcmining.com</em></div>
+          <div class="saturn-cube-face left"><span>⚡</span><b data-cube-face="3"></b><small data-cube-sub="3"></small><em>saturnbtcmining.com</em></div>
+          <div class="saturn-cube-face top"><span>🔐</span><b data-cube-face="4"></b><small data-cube-sub="4"></small><em>saturnbtcmining.com</em></div>
+          <div class="saturn-cube-face bottom"><span>🌍</span><b data-cube-face="5"></b><small data-cube-sub="5"></small><em>saturnbtcmining.com</em></div>
         </div>
       </div>
-      <p class="saturn-cube-caption" id="saturnCubeCaption">Dotknij kostki, aby zmienić język · PL</p>
+      <p class="saturn-cube-caption" id="saturnCubeCaption"></p>
     </div>
   </section>
   <section class="stats">
@@ -439,17 +448,15 @@ setLang('pl',document.querySelector('.lang-btns button'));
 </script>
 
 <script>
-/* Cube language follows the visitor's browser locale; tapping cycles languages. */
+/* Automatic browser-language cube, without manual language or pause buttons. */
 (()=>{
- const languages=['pl','en','de','es','fr','it','pt','nl','uk','cs','ja'];
- const names={pl:'100% SOLO',en:'100% SOLO',de:'100% SOLO',es:'100% SOLO',fr:'100% SOLO',it:'100% SOLO',pt:'100% SOLO',nl:'100% SOLO',uk:'100% SOLO',cs:'100% SOLO',ja:'100% SOLO'};
- const hints={pl:'Dotknij kostki, aby zmienić język',en:'Tap cube to change language',de:'Würfel antippen: Sprache wechseln',es:'Toca el cubo para cambiar idioma',fr:'Touchez le cube pour changer de langue',it:'Tocca il cubo per cambiare lingua',pt:'Toque no cubo para mudar o idioma',nl:'Tik op de kubus om taal te wijzigen',uk:'Натисніть на куб, щоб змінити мову',cs:'Klepnutím na kostku změníte jazyk',ja:'キューブをタップして言語を変更'};
+ const translations={"pl":[["MASZ BITAXE? DOŁĄCZ ZA DARMO!","Społeczność górników solo"],["ZERO OPŁAT ZA REJESTRACJĘ","Dołącz bez opłat"],["100% NAGRODY SOLO","Kopiesz na swój portfel"],["ŁĄCZYMY MOC KOPAREK","Wspólne statystyki floty"],["TWÓJ ADRES BTC","Twój własny portfel"],["GÓRNICY Z CAŁEGO ŚWIATA","Dołącz do społeczności"]],"en":[["HAVE A BITAXE? JOIN FREE!","Solo miners community"],["FREE REGISTRATION","No sign-up fee"],["100% SOLO REWARD","Mine to your own wallet"],["TRACK OUR MINING POWER","Shared fleet statistics"],["YOUR BTC ADDRESS","Your own wallet"],["MINERS WORLDWIDE","Join the community"]],"de":[["BITAXE? KOSTENLOS MITMACHEN!","Solo-Mining-Community"],["KOSTENLOSE ANMELDUNG","Keine Anmeldegebühr"],["100 % SOLO-BELOHNUNG","Mining auf eigene Wallet"],["GEMEINSAME HASHRATE","Gemeinsame Flottenstatistik"],["DEINE BTC-ADRESSE","Deine eigene Wallet"],["MINER WELTWEIT","Werde Teil der Community"]],"fr":[["BITAXE ? REJOIGNEZ-NOUS !","Communauté de mineurs solo"],["INSCRIPTION GRATUITE","Aucun frais"],["100 % RÉCOMPENSE SOLO","Vers votre propre portefeuille"],["PUISSANCE DES MINEURS","Statistiques de la flotte"],["VOTRE ADRESSE BTC","Votre portefeuille"],["MINEURS DU MONDE ENTIER","Rejoignez la communauté"]],"es":[["¿TIENES BITAXE? ¡ÚNETE!","Comunidad de minería solo"],["REGISTRO GRATUITO","Sin cargos de inscripción"],["100 % RECOMPENSA SOLO","A tu propia cartera"],["POTENCIA DE MINERÍA","Estadísticas compartidas"],["TU DIRECCIÓN BTC","Tu propia cartera"],["MINEROS DE TODO EL MUNDO","Únete a la comunidad"]],"it":[["HAI BITAXE? UNISCITI GRATIS!","Comunità di miner solo"],["REGISTRAZIONE GRATUITA","Nessuna quota"],["100% RICOMPENSA SOLO","Sul tuo wallet"],["POTENZA DEI MINER","Statistiche condivise"],["IL TUO INDIRIZZO BTC","Il tuo wallet"],["MINER DA TUTTO IL MONDO","Unisciti alla comunità"]],"pt":[["TEM BITAXE? ENTRE GRÁTIS!","Comunidade de mineração solo"],["REGISTO GRATUITO","Sem taxas"],["100% RECOMPENSA SOLO","Na sua carteira"],["PODER DE MINERAÇÃO","Estatísticas da frota"],["O SEU ENDEREÇO BTC","A sua carteira"],["MINERADORES DO MUNDO","Junte-se à comunidade"]],"nl":[["BITAXE? DOE GRATIS MEE!","Solo-mininggemeenschap"],["GRATIS REGISTRATIE","Geen aanmeldkosten"],["100% SOLO-BELONING","Naar je eigen wallet"],["GEZAMENLIJKE HASHRATE","Gedeelde statistieken"],["JOUW BTC-ADRES","Je eigen wallet"],["MINERS WERELDWIJD","Sluit je aan"]],"uk":[["МАЄШ BITAXE? ПРИЄДНУЙСЯ!","Спільнота соло-майнерів"],["БЕЗКОШТОВНА РЕЄСТРАЦІЯ","Без внесків"],["100% СОЛО-НАГОРОДИ","На власний гаманець"],["СПІЛЬНА ПОТУЖНІСТЬ","Статистика майнерів"],["ТВОЯ BTC-АДРЕСА","Власний гаманець"],["МАЙНЕРИ З УСЬОГО СВІТУ","Приєднуйся"]],"cs":[["MÁŠ BITAXE? PŘIDEJ SE!","Komunita solo těžařů"],["REGISTRACE ZDARMA","Bez poplatků"],["100% SOLO ODMĚNA","Na vlastní peněženku"],["SPOLEČNÝ HASHRATE","Statistiky těžařů"],["TVÁ BTC ADRESA","Vlastní peněženka"],["TĚŽAŘI Z CELÉHO SVĚTA","Přidej se"]],"ja":[["BITAXEをお持ちですか？","無料で参加"],["登録料は無料","費用なし"],["ソロ報酬100%","自分のウォレットへ"],["採掘パワーを表示","共有統計"],["あなたのBTCアドレス","自分のウォレット"],["世界中のマイナー","コミュニティに参加"]]};
+ const raw=(navigator.languages&&navigator.languages[0])||navigator.language||'en';
+ const lang=raw.toLowerCase().split('-')[0];
+ const selected=translations[lang]||translations.en;
  const cube=document.getElementById('saturnCube');if(!cube)return;
- const browserLang=(navigator.languages&&navigator.languages[0]||navigator.language||'en').toLowerCase().split('-')[0];
- let current=languages.includes(browserLang)?languages.indexOf(browserLang):1;
- function render(){const lang=languages[current];cube.querySelectorAll('[data-cube-text]').forEach(el=>el.textContent=names[lang]);document.getElementById('saturnCubeCaption').textContent=hints[lang]+' · '+lang.toUpperCase();cube.setAttribute('aria-label',hints[lang]);}
- function next(){current=(current+1)%languages.length;render();}
- cube.addEventListener('click',next);cube.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();next();}});render();
+ selected.forEach((item,i)=>{const title=cube.querySelector('[data-cube-face="'+i+'"]');const sub=cube.querySelector('[data-cube-sub="'+i+'"]');if(title)title.textContent=item[0];if(sub)sub.textContent=item[1];});
+ const caption=document.getElementById('saturnCubeCaption');if(caption)caption.textContent='SATURN BTC MINING · '+raw.toUpperCase();
 })();
 </script>
 </body>
