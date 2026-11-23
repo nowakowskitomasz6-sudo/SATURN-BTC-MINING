@@ -24,9 +24,103 @@ nav a{text-decoration:none;font-size:.9rem}
 .eyebrow{color:var(--gold);font-weight:700;letter-spacing:.1em;font-size:.88rem}
 h1{font-size:clamp(2.5rem,7vw,4.8rem);line-height:1.05;margin:10px 0;color:var(--gold)}
 h2{color:#fff3d6;margin-top:0}
-.heroart{background:linear-gradient(135deg,#4c3c4e,#304d73);border:1px solid #ffd57f4d;border-radius:22px;padding:22px}
-.heroart .planet{font-size:4.5rem;line-height:1}
-.heroart strong{display:block;color:var(--gold);font-size:1.35rem;margin-top:6px}
+.saturn-cube-scene{
+  --cube-size:9rem;
+  --cube-depth:calc(var(--cube-size) / 2);
+  display:grid;
+  place-items:center;
+  min-height:calc(var(--cube-size) + 6rem);
+  perspective:780px;
+  background:
+    radial-gradient(ellipse closest-side,#22b7e633,transparent),
+    radial-gradient(ellipse 32% 12% at 50% 89%,#ffcb4938,transparent);
+}
+.saturn-cube{
+  position:relative;
+  width:var(--cube-size);
+  height:var(--cube-size);
+  transform-style:preserve-3d;
+  transform:rotateX(-18deg) rotateY(-24deg);
+  animation:saturn-cube-spin 24s linear infinite;
+}
+.saturn-cube-face{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-content:center;
+  gap:4px;
+  padding:8px;
+  text-align:center;
+  line-height:1.2;
+  backface-visibility:hidden;
+  border:1px solid #e5b761;
+  background:
+    repeating-linear-gradient(135deg,#72ccea0c 0 1px,transparent 1px 8px),
+    radial-gradient(ellipse at 50% 0,#1b4964,transparent 65%),
+    linear-gradient(155deg,#102339,#050b17 78%);
+  box-shadow:inset 0 0 0 3px #ffcb4933,inset 0 0 15px #48c9ff40;
+}
+.saturn-cube-face[data-side="front"]{transform:translateZ(var(--cube-depth))}
+.saturn-cube-face[data-side="right"]{transform:rotateY(90deg) translateZ(var(--cube-depth))}
+.saturn-cube-face[data-side="back"]{transform:rotateY(180deg) translateZ(var(--cube-depth))}
+.saturn-cube-face[data-side="left"]{transform:rotateY(-90deg) translateZ(var(--cube-depth))}
+.saturn-cube-face[data-side="top"]{transform:rotateX(90deg) translateZ(var(--cube-depth))}
+.saturn-cube-face[data-side="bottom"]{transform:rotateX(-90deg) translateZ(var(--cube-depth))}
+.saturn-cube-face[data-side="top"],.saturn-cube-face[data-side="bottom"]{
+  background:
+    radial-gradient(circle at 18% 25%,#d7f5ff 0 1px,transparent 2px),
+    radial-gradient(circle at 76% 20%,#fff1c4 0 1px,transparent 2px),
+    radial-gradient(circle at 82% 73%,#b7d9f0 0 1px,transparent 2px),
+    radial-gradient(circle at 27% 81%,#fff1c4 0 1px,transparent 2px),
+    radial-gradient(circle,#1b4964,#060c1d 74%);
+  font-size:4rem;
+}
+.saturn-cube-brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  color:var(--gold);
+  font-size:1rem;
+  font-weight:900;
+  letter-spacing:.11em;
+}
+.saturn-cube-mark{
+  position:relative;
+  width:1.65em;
+  height:1em;
+  flex:none;
+  transform:rotate(-23deg);
+}
+.saturn-cube-mark::before,.saturn-cube-mark::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+}
+.saturn-cube-mark::before{
+  inset:4% 22%;
+  background:
+    radial-gradient(circle at 32% 26%,#fff6cb,transparent 53%),
+    linear-gradient(#ffca53 24%,#b66a27 47%,#ffd36e 61%,#8f461c);
+  box-shadow:0 0 .3em #ffcb4970;
+}
+.saturn-cube-mark::after{
+  inset:32% 0;
+  border:.08em solid #ffe39a;
+  border-top-color:#dfa95785;
+  box-shadow:0 0 .12em #ffcb4980;
+}
+.saturn-cube-face strong{color:#ffe39a;font-size:.8rem}
+.saturn-cube-face strong span{display:block;color:#f2f7ff}
+.saturn-cube-face p{margin:0;color:#d3e1ef;font-size:.6875rem}
+@keyframes saturn-cube-spin{
+  0%{transform:rotateX(-18deg) rotateY(-24deg)}
+  25%{transform:rotateX(-23deg) rotateY(66deg)}
+  50%{transform:rotateX(-16deg) rotateY(156deg)}
+  75%{transform:rotateX(-9deg) rotateY(246deg)}
+  100%{transform:rotateX(-18deg) rotateY(336deg)}
+}
+@media(prefers-reduced-motion:reduce){.saturn-cube{animation:none}}
 .hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .btn{display:inline-block;background:var(--gold);color:#141b2a;border:0;border-radius:12px;padding:12px 18px;font-weight:800;text-decoration:none;cursor:pointer}
 .btn-sm{padding:7px 12px;font-size:.85rem;border-radius:9px}
@@ -56,24 +150,6 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
 .muted{color:var(--muted);margin:4px 0}
 @media(max-width:780px){.hero,.grid,.steps{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:420px){.stats{grid-template-columns:1fr}.card{padding:16px}}
-
-/* SATURN multilingual 3D cube: isolated from the rest of the site */
-.saturn-cube-card{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:245px;overflow:hidden;perspective:850px}
-.saturn-cube-scene{width:155px;height:155px;display:grid;place-items:center;cursor:pointer;perspective:750px;touch-action:manipulation;outline-offset:12px}
-.saturn-cube-scene:focus-visible{outline:2px solid var(--gold);border-radius:12px}
-.saturn-cube{position:relative;width:116px;height:116px;transform-style:preserve-3d;animation:saturn-cube-spin 13s linear infinite}
-.saturn-cube-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;border:2px solid #ffcb49;border-radius:9px;background:linear-gradient(145deg,rgba(38,65,108,.97),rgba(8,17,39,.97));box-shadow:inset 0 0 20px #ffcb4925,0 0 16px #ffcb4930;color:#fff;font-size:13px;backface-visibility:visible}
-.saturn-cube-face span{color:#ffcb49;font-size:13px;font-weight:800}
-.saturn-cube-face b{font-size:13px;line-height:1.25;padding:0 5px}
-.saturn-cube-face.front{transform:translateZ(58px)}
-.saturn-cube-face.back{transform:rotateY(180deg) translateZ(58px)}
-.saturn-cube-face.right{transform:rotateY(90deg) translateZ(58px)}
-.saturn-cube-face.left{transform:rotateY(-90deg) translateZ(58px)}
-.saturn-cube-face.top{transform:rotateX(90deg) translateZ(58px)}
-.saturn-cube-face.bottom{transform:rotateX(-90deg) translateZ(58px)}
-.saturn-cube-caption{font-size:.85rem;color:var(--muted);text-align:center;margin:16px 0 0}
-@keyframes saturn-cube-spin{from{transform:rotateX(-20deg) rotateY(0deg)}to{transform:rotateX(-20deg) rotateY(360deg)}}
-@media(prefers-reduced-motion:reduce){.saturn-cube{animation:none;transform:rotateX(-20deg) rotateY(28deg)}}
 </style>
 </head>
 <body>
@@ -103,18 +179,31 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
         <a class="btn btn-tg" id="heroBtnTg" href="https://t.me/saturnbtcmining" target="_blank">💬 Dołącz do Telegrama</a>
       </div>
     </div>
-    <div class="heroart saturn-cube-card">
-      <div class="saturn-cube-scene" id="saturnCube" role="button" tabindex="0" aria-label="Change cube language" title="Tap to change language">
-        <div class="saturn-cube">
-          <div class="saturn-cube-face front"><span>🪐 SATURN</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face back"><span>⚡ BITCOIN</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face right"><span>🌍 GLOBAL</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face left"><span>⛏ BITAXE</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face top"><span>🪐 SATURN</span><b data-cube-text>100% SOLO</b></div>
-          <div class="saturn-cube-face bottom"><span>⚡ BTC</span><b data-cube-text>100% SOLO</b></div>
+    <div class="saturn-cube-scene">
+      <div class="saturn-cube" id="saturn-cube" lang="pl">
+        <div class="saturn-cube-face" data-side="front">
+          <div class="saturn-cube-brand"><span class="saturn-cube-mark" aria-hidden="true"></span>SATURN</div>
+          <strong>100% SOLO <span data-cube-text="cubeWallet">Twój własny portfel</span></strong>
+          <p data-cube-text="cubeDetails">0% prowizji · Wspólny licznik mocy floty SATURN · +1, bez końca</p>
         </div>
+        <div class="saturn-cube-face" data-side="right" aria-hidden="true">
+          <div class="saturn-cube-brand"><span class="saturn-cube-mark"></span>SATURN</div>
+          <strong>100% SOLO <span data-cube-text="cubeWallet">Twój własny portfel</span></strong>
+          <p data-cube-text="cubeDetails">0% prowizji · Wspólny licznik mocy floty SATURN · +1, bez końca</p>
+        </div>
+        <div class="saturn-cube-face" data-side="back" aria-hidden="true">
+          <div class="saturn-cube-brand"><span class="saturn-cube-mark"></span>SATURN</div>
+          <strong>100% SOLO <span data-cube-text="cubeWallet">Twój własny portfel</span></strong>
+          <p data-cube-text="cubeDetails">0% prowizji · Wspólny licznik mocy floty SATURN · +1, bez końca</p>
+        </div>
+        <div class="saturn-cube-face" data-side="left" aria-hidden="true">
+          <div class="saturn-cube-brand"><span class="saturn-cube-mark"></span>SATURN</div>
+          <strong>100% SOLO <span data-cube-text="cubeWallet">Twój własny portfel</span></strong>
+          <p data-cube-text="cubeDetails">0% prowizji · Wspólny licznik mocy floty SATURN · +1, bez końca</p>
+        </div>
+        <div class="saturn-cube-face" data-side="top" aria-hidden="true"><span class="saturn-cube-mark"></span></div>
+        <div class="saturn-cube-face" data-side="bottom" aria-hidden="true"><span class="saturn-cube-mark"></span></div>
       </div>
-      <p class="saturn-cube-caption" id="saturnCubeCaption">Dotknij kostki, aby zmienić język · PL</p>
     </div>
   </section>
   <section class="stats">
@@ -293,6 +382,8 @@ document.getElementById('form').addEventListener('submit',async e=>{
 });
 const i18n={
   pl:{
+    cubeWallet:"Twój własny portfel",
+    cubeDetails:"0% prowizji · Wspólny licznik mocy floty SATURN · +1, bez końca",
     heroDesc:"Społeczność niezależnych górników solo Bitaxe. Każdy kopie 100% SOLO na swój własny portfel BTC, a na stronie łączymy naszą wspólną moc floty!",
     heroBtnReg:"⚡ Zarejestruj koparkę",
     heroBtnTg:"💬 Dołącz do Telegrama",
@@ -308,6 +399,8 @@ const i18n={
     ]
   },
   en:{
+    cubeWallet:"Your own wallet",
+    cubeDetails:"0% fees · Shared SATURN fleet hashrate counter · +1, endlessly",
     heroDesc:"Global community of Bitaxe solo miners. Everyone mines 100% SOLO to their own BTC wallet while combining our fleet power!",
     heroBtnReg:"⚡ Register Miner",
     heroBtnTg:"💬 Join Telegram",
@@ -323,6 +416,8 @@ const i18n={
     ]
   },
   de:{
+    cubeWallet:"Deine eigene Wallet",
+    cubeDetails:"0 % Gebühr · Hashrate-Zähler der SATURN-Flotte · +1, ohne Ende",
     heroDesc:"Globale Community von Bitaxe-Solo-Minern. Jeder mint 100% SOLO auf seine eigene BTC-Wallet, während wir unsere Gesamtleistung gemeinsam anzeigen!",
     heroBtnReg:"⚡ Miner registrieren",
     heroBtnTg:"💬 Telegram beitreten",
@@ -338,7 +433,7 @@ const i18n={
     ]
   }
 };
-function setLang(l,btn){
+function setLang(l,btn,cubeLang=l){
   document.querySelectorAll('.lang-btns button').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
   const t=i18n[l]||i18n.pl;
@@ -347,8 +442,15 @@ function setLang(l,btn){
   });
   document.getElementById('faq-title').textContent=t.faqTitle;
   document.getElementById('faq-content').innerHTML=t.faqs.map(i=>`<details style="background:rgba(15,23,42,.8);padding:12px;border-radius:10px;border:1px solid #334155"><summary style="font-weight:bold;color:#fde68a;cursor:pointer">${i.q}</summary><p style="margin:8px 0 0;color:#cbd5e1">${i.a}</p></details>`).join('');
+  const cube=document.getElementById('saturn-cube');
+  cube.lang=Object.keys(i18n).includes(cubeLang)?cubeLang:'pl';
+  const cubeText=i18n[cube.lang];
+  cube.querySelectorAll('[data-cube-text]').forEach(el=>{
+    el.textContent=cubeText[el.dataset.cubeText];
+  });
 }
-setLang('pl',document.querySelector('.lang-btns button'));
+const browserLang=(navigator.language||'pl').toLowerCase().split('-')[0];
+setLang('pl',document.querySelector('.lang-btns button'),browserLang);
 </script>
 <script>
 (()=>{
@@ -435,21 +537,6 @@ setLang('pl',document.querySelector('.lang-btns button'));
     requestAnimationFrame(rain);
   }
   requestAnimationFrame(rain);
-})();
-</script>
-
-<script>
-/* Cube language follows the visitor's browser locale; tapping cycles languages. */
-(()=>{
- const languages=['pl','en','de','es','fr','it','pt','nl','uk','cs','ja'];
- const names={pl:'100% SOLO',en:'100% SOLO',de:'100% SOLO',es:'100% SOLO',fr:'100% SOLO',it:'100% SOLO',pt:'100% SOLO',nl:'100% SOLO',uk:'100% SOLO',cs:'100% SOLO',ja:'100% SOLO'};
- const hints={pl:'Dotknij kostki, aby zmienić język',en:'Tap cube to change language',de:'Würfel antippen: Sprache wechseln',es:'Toca el cubo para cambiar idioma',fr:'Touchez le cube pour changer de langue',it:'Tocca il cubo per cambiare lingua',pt:'Toque no cubo para mudar o idioma',nl:'Tik op de kubus om taal te wijzigen',uk:'Натисніть на куб, щоб змінити мову',cs:'Klepnutím na kostku změníte jazyk',ja:'キューブをタップして言語を変更'};
- const cube=document.getElementById('saturnCube');if(!cube)return;
- const browserLang=(navigator.languages&&navigator.languages[0]||navigator.language||'en').toLowerCase().split('-')[0];
- let current=languages.includes(browserLang)?languages.indexOf(browserLang):1;
- function render(){const lang=languages[current];cube.querySelectorAll('[data-cube-text]').forEach(el=>el.textContent=names[lang]);document.getElementById('saturnCubeCaption').textContent=hints[lang]+' · '+lang.toUpperCase();cube.setAttribute('aria-label',hints[lang]);}
- function next(){current=(current+1)%languages.length;render();}
- cube.addEventListener('click',next);cube.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();next();}});render();
 })();
 </script>
 </body>
