@@ -88,6 +88,7 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
 @keyframes saturn-aurora{to{transform:rotate(360deg)}}@keyframes saturn-edge{0%,20%,100%{opacity:.55}27%,35%{opacity:1}45%{opacity:.65}}@keyframes saturn-flash{0%,8%{background-position:100% 0;opacity:0}12%{opacity:.6}22%{background-position:0% 0;opacity:0}100%{opacity:0}}@keyframes saturn-halo{50%{opacity:.4;filter:hue-rotate(30deg)}}@keyframes saturn-pulse{50%{opacity:.4;transform:translateY(185px) scale(1.18)}}@keyframes saturn-float{to{transform:translate(14px,-28px);opacity:.35}}
 @media(max-width:650px){.saturn-cube-card{min-height:0;padding:14px 10px;gap:3px;justify-content:center}.saturn-cube-heading{font-size:17px}.saturn-cube-subheading{font-size:9px;letter-spacing:2px}.saturn-cube-scene{--s:min(44vw,172px);height:185px}.saturn-cube-halo{width:min(64%,245px);transform:translateY(83px) rotateX(60deg)}.saturn-cube-halo.two{width:min(48%,185px);transform:translateY(78px) rotateX(68deg)}.saturn-cube-glow{transform:translateY(80px);animation-name:saturn-pulse-mobile}.saturn-cube-face{gap:4px;padding:7px 5px 23px;border-width:2px}.saturn-cube-face b{font-size:clamp(11px,3vw,14px);line-height:1.08;letter-spacing:-.2px;text-wrap:balance}.saturn-cube-face span{font-size:clamp(23px,6vw,30px);line-height:1}.saturn-cube-face em{font-size:clamp(8px,2vw,9px);bottom:7px;letter-spacing:-.3px}.saturn-cube-site{font-size:12px}}@keyframes saturn-pulse-mobile{50%{opacity:.4;transform:translateY(80px) scale(1.18)}}
 @media(max-width:650px){#saturnLivePanel{padding:12px!important;margin:10px 0!important}#saturnLivePanel h2{font-size:16px!important;line-height:1.25;margin-bottom:4px!important}#saturnLivePanel #liveStatus{font-size:10px!important;margin-bottom:5px!important}#saturnLivePanel #liveLog{max-height:130px!important;padding:8px!important;font-size:11px!important;line-height:1.35!important}#saturnLivePanel .muted{font-size:11px!important;line-height:1.3}}
+.saturn-stats-compact{display:block;grid-template-columns:none}.saturn-stats-card{padding:18px}.saturn-stats-title{font-size:clamp(16px,2vw,21px);margin:0 0 14px;color:#e6f5ff}.saturn-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.saturn-stats-item{min-width:0;padding:12px;border-radius:12px;background:rgba(12,29,54,.55);border:1px solid rgba(118,167,216,.18)}.saturn-stats-item .label{color:var(--muted);font-size:12px}.saturn-stats-item .number{font-size:clamp(17px,2vw,24px);font-weight:850;margin:5px 0 0;overflow-wrap:anywhere}.saturn-stats-reward{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid rgba(148,163,184,.25)}.saturn-stats-reward strong{color:var(--gold);font-size:20px}.saturn-stats-reward small{color:var(--muted)}@media(max-width:650px){.saturn-stats-card{padding:13px!important}.saturn-stats-title{font-size:15px;margin-bottom:9px}.saturn-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.saturn-stats-item{padding:9px 8px}.saturn-stats-item .label{font-size:11px;line-height:1.25}.saturn-stats-item .number{font-size:18px;line-height:1.25}.saturn-stats-reward{gap:5px 10px;margin-top:9px;padding-top:9px;font-size:12px}.saturn-stats-reward strong{font-size:18px}.saturn-stats-reward small{flex-basis:100%;font-size:11px}}
 @media(prefers-reduced-motion:reduce){.saturn-cube,.saturn-cube-card::before,.saturn-cube-face::before,.saturn-cube-face::after,.saturn-cube-halo,.saturn-cube-glow,.saturn-cube-spark{animation:none}}
 </style>
 </head>
@@ -136,13 +137,18 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
       <div class="saturn-cube-site">saturnbtcmining.com</div>
     </div>
   </section>
-  <section class="stats">
-    <div class="card stat"><div class="label" id="lblDeclared">Moc zgłoszona floty</div><div class="number" id="declaredPower">— TH/s</div><p class="muted">Suma mocy wpisanej przy rejestracji</p></div>
-    <div class="card stat"><div class="label" id="lblPower">Moc CKPool (ostatnie 5 min)</div><div class="number" id="totalPower">— TH/s</div><p class="muted">Dane na żywo ze wszystkich zarejestrowanych adresów BTC</p></div>
-    <div class="card stat"><div class="label" id="lblCount">Zarejestrowane koparki</div><div class="number" id="registeredCount">0</div><p class="muted">Wspólna flota górników Bitaxe</p></div>
-    <div class="card stat"><div class="label">Workery CKPool na żywo</div><div class="number" id="onlineCount">—</div><p class="muted">Suma workerów dla adresów floty</p></div>
-    <div class="card stat"><div class="label">Nagroda za blok BTC</div><div class="number" style="color:var(--gold)">100% SOLO</div><p class="muted">Bezpośrednio na Twój portfel</p></div>
-  </section>
+  <section class="stats saturn-stats-compact" aria-label="Statystyki SATURN na żywo">
+  <div class="card saturn-stats-card">
+    <h2 class="saturn-stats-title">🪐 SATURN — STATYSTYKI NA ŻYWO</h2>
+    <div class="saturn-stats-grid">
+      <div class="saturn-stats-item"><div class="label" id="lblDeclared">Moc zgłoszona floty</div><div class="number" id="declaredPower">— TH/s</div></div>
+      <div class="saturn-stats-item"><div class="label" id="lblPower">Moc CKPool (ostatnie 5 min)</div><div class="number" id="totalPower">— TH/s</div></div>
+      <div class="saturn-stats-item"><div class="label" id="lblCount">Zarejestrowane koparki</div><div class="number" id="registeredCount">0</div></div>
+      <div class="saturn-stats-item"><div class="label">Workery CKPool na żywo</div><div class="number" id="onlineCount">—</div></div>
+    </div>
+    <div class="saturn-stats-reward"><span>Nagroda za blok BTC</span><strong>100% SOLO</strong><small>Bezpośrednio na Twój portfel</small></div>
+  </div>
+</section>
 <section id="saturnLivePanel" class="card" style="margin:16px 0;background:rgba(3,10,6,.96);border:1px solid #31f36f;box-shadow:0 0 22px #11d95a33">
   <h2 style="color:#43ff76;font-family:ui-monospace,monospace;margin-bottom:6px">SATURN LIVE | LOGI KOPAREK</h2>
   <div id="liveStatus" style="color:#66f5a5;font:700 12px/1.5 ui-monospace,Consolas,monospace;margin-bottom:8px">OCZEKIWANIE NA PRZEKAŹNIK</div>
