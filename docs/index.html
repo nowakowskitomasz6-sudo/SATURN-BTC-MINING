@@ -58,12 +58,12 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
 @media(max-width:420px){.stats{grid-template-columns:1fr}.card{padding:16px}}
 
 /* SATURN 6D visual preview: 3D cube + four effects, scoped to hero */
-.saturn-cube-card{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:510px;overflow:hidden;background:radial-gradient(ellipse at center,#10478c 0%,#071d42 46%,#020719 100%);border-radius:16px}
+.saturn-cube-card{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:600px;overflow:hidden;background:radial-gradient(ellipse at center,#10478c 0%,#071d42 46%,#020719 100%);border-radius:16px}
 .saturn-cube-card::before{content:"";position:absolute;inset:-30%;pointer-events:none;background:conic-gradient(from 0deg,transparent,#00c8ff16,transparent,#5a46ff20,transparent,#00dfff18,transparent);animation:saturn-aurora 12s linear infinite}
 .saturn-cube-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0 5px,#74dfff08 6px 7px)}
 .saturn-cube-heading{font-weight:900;font-size:clamp(17px,2.1vw,26px);text-shadow:0 0 18px #49cfff;text-align:center;z-index:2}
 .saturn-cube-subheading{font-size:11px;letter-spacing:3px;color:#72d9ff;text-align:center;z-index:2}
-.saturn-cube-scene{--s:clamp(155px,19vw,245px);position:relative;width:100%;height:350px;display:grid;place-items:center;perspective:950px;transform-style:preserve-3d;isolation:isolate}
+.saturn-cube-scene{--s:clamp(220px,26vw,310px);position:relative;width:100%;height:430px;display:grid;place-items:center;perspective:950px;transform-style:preserve-3d;isolation:isolate}
 .saturn-cube{position:relative;width:var(--s);height:var(--s);transform-style:preserve-3d;animation:saturn-turn 24s ease-in-out infinite;will-change:transform;z-index:2}
 .saturn-cube-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:13px 9px 31px;box-sizing:border-box;border:3px solid #5bd7ff;border-radius:11px;background:linear-gradient(145deg,#09265b,#031126 65%,#02091c);box-shadow:inset 0 0 32px #00aaff,0 0 24px #00baff,0 0 10px white;color:#fff;text-align:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
 .saturn-cube-face::before{content:"";position:absolute;inset:-4px;border:4px solid transparent;border-radius:14px;box-shadow:inset 0 0 6px #dfffff;animation:saturn-edge 4s ease-in-out infinite;pointer-events:none}
@@ -78,15 +78,15 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
 .saturn-cube-face.left{transform:rotateY(-90deg) translateZ(calc(var(--s)/2))}
 .saturn-cube-face.top{transform:rotateX(90deg) translateZ(calc(var(--s)/2))}
 .saturn-cube-face.bottom{transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
-.saturn-cube-halo{position:absolute;width:min(85%,380px);height:60px;border:3px solid #29bfff;border-radius:50%;box-shadow:0 0 24px #13bfff,0 0 48px #0974f5;transform:translateY(155px) rotateX(60deg);animation:saturn-halo 6s ease-in-out infinite;pointer-events:none}
-.saturn-cube-halo.two{width:min(65%,300px);height:50px;border-width:2px;transform:translateY(145px) rotateX(68deg);animation-duration:9s}
-.saturn-cube-glow{position:absolute;width:75%;height:90px;border-radius:50%;background:radial-gradient(ellipse,#17caff50,transparent 70%);filter:blur(14px);transform:translateY(150px);animation:saturn-pulse 3s ease-in-out infinite;pointer-events:none}
+.saturn-cube-halo{position:absolute;width:min(85%,380px);height:60px;border:3px solid #29bfff;border-radius:50%;box-shadow:0 0 24px #13bfff,0 0 48px #0974f5;transform:translateY(190px) rotateX(60deg);animation:saturn-halo 6s ease-in-out infinite;pointer-events:none}
+.saturn-cube-halo.two{width:min(65%,300px);height:50px;border-width:2px;transform:translateY(180px) rotateX(68deg);animation-duration:9s}
+.saturn-cube-glow{position:absolute;width:75%;height:90px;border-radius:50%;background:radial-gradient(ellipse,#17caff50,transparent 70%);filter:blur(14px);transform:translateY(185px);animation:saturn-pulse 3s ease-in-out infinite;pointer-events:none}
 .saturn-cube-spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#b9f8ff;box-shadow:0 0 10px 4px #15cfff;animation:saturn-float 5s ease-in-out infinite alternate;pointer-events:none}
 .saturn-cube-spark.a{top:20%;left:14%}.saturn-cube-spark.b{top:70%;right:11%;animation-delay:-1.7s}.saturn-cube-spark.c{top:36%;right:20%;animation-delay:-3.2s}.saturn-cube-spark.d{bottom:19%;left:23%;animation-delay:-2.1s}
 .saturn-cube-site{font-size:clamp(14px,1.5vw,19px);font-weight:800;color:#a9eaff;z-index:2}
 @keyframes saturn-turn{0%,11.6%{transform:rotateX(0) rotateY(0)}16.667%,28.3%{transform:rotateX(0) rotateY(-90deg)}33.333%,45%{transform:rotateX(0) rotateY(-180deg)}50%,61.6%{transform:rotateX(0) rotateY(-270deg)}66.667%,78.3%{transform:rotateX(-90deg) rotateY(-360deg)}83.333%,95%{transform:rotateX(90deg) rotateY(-360deg)}100%{transform:rotateX(0) rotateY(-360deg)}}
-@keyframes saturn-aurora{to{transform:rotate(360deg)}}@keyframes saturn-edge{0%,20%,100%{opacity:.55}27%,35%{opacity:1}45%{opacity:.65}}@keyframes saturn-flash{0%,8%{background-position:100% 0;opacity:0}12%{opacity:.6}22%{background-position:0% 0;opacity:0}100%{opacity:0}}@keyframes saturn-halo{50%{opacity:.4;filter:hue-rotate(30deg)}}@keyframes saturn-pulse{50%{opacity:.4;transform:translateY(150px) scale(1.18)}}@keyframes saturn-float{to{transform:translate(14px,-28px);opacity:.35}}
-@media(max-width:650px){.saturn-cube-card{min-height:500px}.saturn-cube-scene{--s:min(55vw,240px);height:345px}.saturn-cube-face b{font-size:clamp(14px,3.8vw,20px)}.saturn-cube-face em{font-size:clamp(9px,2.3vw,12px)}}
+@keyframes saturn-aurora{to{transform:rotate(360deg)}}@keyframes saturn-edge{0%,20%,100%{opacity:.55}27%,35%{opacity:1}45%{opacity:.65}}@keyframes saturn-flash{0%,8%{background-position:100% 0;opacity:0}12%{opacity:.6}22%{background-position:0% 0;opacity:0}100%{opacity:0}}@keyframes saturn-halo{50%{opacity:.4;filter:hue-rotate(30deg)}}@keyframes saturn-pulse{50%{opacity:.4;transform:translateY(185px) scale(1.18)}}@keyframes saturn-float{to{transform:translate(14px,-28px);opacity:.35}}
+@media(max-width:650px){.saturn-cube-card{min-height:590px;padding:22px 10px}.saturn-cube-scene{--s:min(72vw,300px);height:430px}.saturn-cube-face b{font-size:clamp(14px,3.8vw,20px)}.saturn-cube-face em{font-size:clamp(9px,2.3vw,12px)}}
 @media(prefers-reduced-motion:reduce){.saturn-cube,.saturn-cube-card::before,.saturn-cube-face::before,.saturn-cube-face::after,.saturn-cube-halo,.saturn-cube-glow,.saturn-cube-spark{animation:none}}
 </style>
 </head>
