@@ -110,6 +110,40 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
  main.wrap #saturn-faq{display:block}
 }
 @media(prefers-reduced-motion:reduce){.saturn-cube,.saturn-cube-card::before,.saturn-cube-face::before,.saturn-cube-face::after,.saturn-cube-halo,.saturn-cube-glow,.saturn-cube-spark{animation:none}}
+
+/* Approved share-video cube: one rigid 250px cube, 2.5s holds, 0.6s transitions, subtle levitation. */
+.saturn-cube-card{background:radial-gradient(ellipse at 50% 45%,#153b70 0%,#06132e 43%,#01030e 88%)}
+.saturn-cube-scene{--s:250px;perspective:950px;transform-style:preserve-3d;isolation:isolate;height:435px}
+.saturn-cube-float{position:relative;width:var(--s);height:var(--s);transform-style:preserve-3d;animation:saturn-approved-float 4s ease-in-out infinite;z-index:2}
+.saturn-cube{width:100%;height:100%;animation:saturn-approved-turn 18.6s linear infinite;transform-style:preserve-3d}
+.saturn-cube-face{gap:15px;padding:15px 12px 30px;border:3px solid #b7edff;border-radius:4px;background:linear-gradient(145deg,#090d17,#000 65%,#040711);box-shadow:inset 0 0 23px #009bff,0 0 12px #68dcff,0 0 3px #fff;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.saturn-cube-face b{font-size:23px;line-height:1.18}
+.saturn-cube-face span{font-size:48px}
+.saturn-cube-face em{font-size:12px;bottom:13px}
+.saturn-cube-face::before,.saturn-cube-face::after{display:none}
+.saturn-cube-halo{width:340px;height:75px;border:3px solid #19caff;transform:translateY(175px) rotateX(65deg)}
+.saturn-cube-halo.two{width:260px;height:55px;border-color:#ffc66c;transform:translateY(179px) rotateX(65deg)}
+.saturn-cube-glow{width:300px;height:70px;background:#1ebaff55;filter:blur(30px);transform:translateY(182px);animation:none}
+@keyframes saturn-approved-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes saturn-approved-turn{
+0%,13.44086%{transform:rotateX(0deg) rotateY(0deg)}
+16.66667%,30.10753%{transform:rotateX(0deg) rotateY(-90deg)}
+33.33333%,46.77419%{transform:rotateX(0deg) rotateY(-180deg)}
+50%,63.44086%{transform:rotateX(0deg) rotateY(-270deg)}
+66.66667%,80.10753%{transform:rotateX(-90deg) rotateY(-360deg)}
+83.33333%,96.77419%{transform:rotateX(90deg) rotateY(-360deg)}
+100%{transform:rotateX(0deg) rotateY(-360deg)}
+}
+@media(max-width:650px){
+.saturn-cube-scene{--s:min(58vw,250px);height:310px}
+.saturn-cube-face{gap:8px;padding:9px 7px 24px}
+.saturn-cube-face b{font-size:clamp(12px,3.6vw,20px);line-height:1.14}
+.saturn-cube-face span{font-size:clamp(28px,8vw,45px)}
+.saturn-cube-face em{font-size:clamp(8px,2.3vw,11px);bottom:9px}
+.saturn-cube-halo{width:min(75%,340px);transform:translateY(128px) rotateX(65deg)}
+.saturn-cube-halo.two{width:min(60%,260px);transform:translateY(132px) rotateX(65deg)}
+.saturn-cube-glow{width:75%;transform:translateY(135px)}
+}
 </style>
 </head>
 <body>
@@ -145,14 +179,14 @@ code{background:#0f172a;padding:4px 8px;border-radius:6px;color:#fde68a;font-siz
       <div class="saturn-cube-scene" id="saturnCube" aria-label="Obracająca się kostka SATURN BTC MINING">
         <div class="saturn-cube-halo"></div><div class="saturn-cube-halo two"></div><div class="saturn-cube-glow"></div>
         <i class="saturn-cube-spark a"></i><i class="saturn-cube-spark b"></i><i class="saturn-cube-spark c"></i><i class="saturn-cube-spark d"></i>
-        <div class="saturn-cube">
+        <div class="saturn-cube-float"><div class="saturn-cube">
           <div class="saturn-cube-face front"><b data-cube-face="0">DARMOWA REJESTRACJA</b><span>☑</span><em>saturnbtcmining.com</em></div>
           <div class="saturn-cube-face right"><b data-cube-face="1">TWÓJ PORTFEL BTC</b><span>🔐</span><em>saturnbtcmining.com</em></div>
           <div class="saturn-cube-face back"><b data-cube-face="2">MASZ BITAXE? DOŁĄCZ ZA DARMO</b><span>₿</span><em>saturnbtcmining.com</em></div>
           <div class="saturn-cube-face left"><b data-cube-face="3">ŁĄCZYMY MOC KOPAREK</b><span>⚡</span><em>saturnbtcmining.com</em></div>
           <div class="saturn-cube-face top"><b>SATURN BTC MINING</b><span>🪐</span><em>saturnbtcmining.com</em></div>
           <div class="saturn-cube-face bottom"><b data-cube-face="5">GÓRNICY Z CAŁEGO ŚWIATA</b><span>🌍</span><em>saturnbtcmining.com</em></div>
-        </div>
+        </div></div>
       </div>
       <div class="saturn-cube-site">saturnbtcmining.com</div>
     </div>
