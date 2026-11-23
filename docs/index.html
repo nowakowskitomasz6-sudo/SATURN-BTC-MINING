@@ -295,7 +295,7 @@ if(liveLogBox){
     const bottom=liveLogBox.scrollHeight-liveLogBox.clientHeight;
     if(liveLogBox.scrollTop>=bottom-2)liveLogBox.scrollTop=0;
     else liveLogBox.scrollTop+=1;
-  },90);
+  },60);
 }
 async function loadLiveLogs(){
   const logEl=document.getElementById('liveLog');
