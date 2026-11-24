@@ -545,5 +545,32 @@ setLang('pl',document.querySelector('.lang-btns button'));
  
 })();
 </script>
+<!-- SATURN optional analytics -->
+<script>
+(()=>{
+ const key='saturn_analytics_choice', id='G-DH2CHLCCGK';
+ let choice=null, active=false;
+ try{choice=localStorage.getItem(key)}catch(e){}
+ const pl=(navigator.language||'en').toLowerCase().startsWith('pl');
+ const de=(navigator.language||'en').toLowerCase().startsWith('de');
+ const t=pl?['Opcjonalna analityka Google mierzy odwiedziny i źródła ruchu za pomocą cookies. Dane trafiają do Google. Odmowa nie ogranicza działania strony.','Akceptuję','Odrzucam','Ustawienia analityki','Prywatność Google']:de?['Optionale Google Analytics misst Besuche und Besucherquellen mit Cookies. Daten werden an Google übertragen. Ablehnung schränkt die Website nicht ein.','Akzeptieren','Ablehnen','Analyse-Einstellungen','Google Datenschutz']:['Optional Google Analytics uses cookies to measure visits and traffic sources. Data is sent to Google. Declining does not limit the site.','Accept','Reject','Analytics settings','Google privacy'];
+ function start(){
+ if(active)return; active=true;
+ window.dataLayer=window.dataLayer||[];
+ window.gtag=function(){window.dataLayer.push(arguments)};
+ gtag('js',new Date());
+ gtag('config',id,{allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:false,page_location:location.origin+location.pathname,page_referrer:document.referrer?new URL(document.referrer).origin:''});
+ gtag('event','page_view',{page_location:location.origin+location.pathname,page_referrer:document.referrer?new URL(document.referrer).origin:''});
+ const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+id;document.head.appendChild(s);
+ }
+ const footer=document.querySelector('footer')||document.body;
+ const settings=document.createElement('button');settings.type='button';settings.className='btn btn-sm';settings.textContent=t[3];footer.appendChild(settings);
+ const panel=document.createElement('aside');panel.setAttribute('aria-label',t[3]);panel.style.cssText='position:fixed;bottom:12px;left:12px;right:12px;max-width:560px;margin:auto;z-index:10000;background:#172943;color:white;border:1px solid #64748b;border-radius:12px;padding:14px;font:14px/1.5 system-ui;box-shadow:0 4px 24px #0008';
+ const p=document.createElement('p');p.textContent=t[0]+' ';p.style.margin='0 0 10px';const link=document.createElement('a');link.href='https://policies.google.com/privacy';link.textContent=t[4];link.target='_blank';link.rel='noopener noreferrer';p.appendChild(link);panel.appendChild(p);
+ function choose(v){choice=v;try{localStorage.setItem(key,v)}catch(e){} panel.hidden=true;if(v==='yes'){start()}else{window['ga-disable-'+id]=true;document.cookie.split(';').forEach(x=>{const n=x.split('=')[0].trim();if(n==='_ga'||n.startsWith('_ga_')){for(const d of ['', ';domain='+location.hostname,';domain=.saturnbtcmining.com'])document.cookie=n+'=;Max-Age=0;path=/'+d;}});if(active)location.reload();}}
+ for(const [v,label] of [['yes',t[1]],['no',t[2]]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.style.cssText='background:#334155;color:white;border:1px solid #94a3b8;border-radius:8px;padding:9px 15px;margin-right:8px;cursor:pointer';b.onclick=()=>choose(v);panel.appendChild(b);}
+ document.body.appendChild(panel);panel.hidden=choice==='yes'||choice==='no';settings.onclick=()=>{panel.hidden=false};if(choice==='yes')start();
+})();
+</script>
 </body>
 </html>
